@@ -1,11 +1,11 @@
-import 'package:cowculator/components/buttons.dart';
-import 'package:cowculator/components/globals.dart';
-import 'package:cowculator/settings.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:math_expressions/math_expressions.dart';
+import 'components/buttons.dart';
+import 'components/globals.dart';
 import 'components/appbar.dart';
 import 'components/colors.dart';
+import 'components/icons.dart';
+import 'settings.dart';
+import 'package:flutter/material.dart';
+import 'package:math_expressions/math_expressions.dart';
 
 void main() {
   runApp(const App());
@@ -163,7 +163,7 @@ class _MainState extends State<Main> {
           title: "COWCULATOR",
           color: widget.color,
           action: IconButton(
-              icon: Image.asset('assets/images/settings.png'),
+              icon: settings,
               onPressed: () {
                 Navigator.pushAndRemoveUntil(
                     context,
@@ -199,54 +199,40 @@ class _MainState extends State<Main> {
                 crossAxisCount: 4,
                 children: [
                   // first row
-                  OperatorButton(text: "CLR", action: _clear),
-                  OperatorButton(text: "( )", action: _parentheses),
-                  OperatorIconButton(
-                    icon: const Icon(CupertinoIcons.percent, size: 40),
-                    action: _percent,
-                  ),
-                  OperatorIconButton(
-                    icon: const Icon(CupertinoIcons.divide, size: 40),
-                    action: _divide,
-                  ),
-                  // second row
-                  NumButton(text: "7", action: _numeric),
-                  NumButton(text: "8", action: _numeric),
-                  NumButton(text: "9", action: _numeric),
-                  OperatorIconButton(
-                    icon: const Icon(CupertinoIcons.multiply, size: 40),
-                    action: _multiply,
-                  ),
-                  // third row
-                  NumButton(text: "4", action: _numeric),
-                  NumButton(text: "5", action: _numeric),
-                  NumButton(text: "6", action: _numeric),
-                  OperatorIconButton(
-                    icon: const Icon(CupertinoIcons.minus, size: 40),
-                    action: _subtract,
-                  ),
-                  // fourth row
-                  NumButton(text: "1", action: _numeric),
-                  NumButton(text: "2", action: _numeric),
-                  NumButton(text: "3", action: _numeric),
-                  OperatorIconButton(
-                    icon: const Icon(CupertinoIcons.plus, size: 40),
-                    action: _add,
-                  ),
-                  // fifth row
-                  NumButton(text: "0", action: _numeric),
                   OperatorButton(
-                    text: ".",
-                    action: _decimal,
-                  ),
+                      text: "CLR", action: _clear, color: widget.color),
+                  OperatorButton(
+                      text: "( )", action: _parentheses, color: widget.color),
                   OperatorIconButton(
-                    icon: const Icon(CupertinoIcons.delete_left, size: 40),
-                    action: _delete,
-                  ),
+                      icon: percent, action: _percent, color: widget.color),
                   OperatorIconButton(
-                    icon: const Icon(CupertinoIcons.equal, size: 40),
-                    action: _evaluate,
-                  ),
+                      icon: divide, action: _divide, color: widget.color),
+                  // second row
+                  NumButton(text: "7", action: _numeric, color: widget.color),
+                  NumButton(text: "8", action: _numeric, color: widget.color),
+                  NumButton(text: "9", action: _numeric, color: widget.color),
+                  OperatorIconButton(
+                      icon: multiply, action: _multiply, color: widget.color),
+                  // third row
+                  NumButton(text: "4", action: _numeric, color: widget.color),
+                  NumButton(text: "5", action: _numeric, color: widget.color),
+                  NumButton(text: "6", action: _numeric, color: widget.color),
+                  OperatorIconButton(
+                      icon: minus, action: _subtract, color: widget.color),
+                  // fourth row
+                  NumButton(text: "1", action: _numeric, color: widget.color),
+                  NumButton(text: "2", action: _numeric, color: widget.color),
+                  NumButton(text: "3", action: _numeric, color: widget.color),
+                  OperatorIconButton(
+                      icon: plus, action: _add, color: widget.color),
+                  // fifth row
+                  NumButton(text: "0", action: _numeric, color: widget.color),
+                  OperatorButton(
+                      text: ".", action: _decimal, color: widget.color),
+                  OperatorIconButton(
+                      icon: delete, action: _delete, color: widget.color),
+                  OperatorIconButton(
+                      icon: equal, action: _evaluate, color: widget.color),
                 ],
               ),
             )

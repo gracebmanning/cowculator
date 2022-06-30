@@ -1,0 +1,17 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+
+// MAIN PAGE
+const settings = Icon(FeatherIcons.settings);
+const percent = Icon(CupertinoIcons.percent, size: 35);
+const divide = Icon(CupertinoIcons.divide, size: 35);
+const multiply = Icon(CupertinoIcons.multiply, size: 35);
+const minus = Icon(CupertinoIcons.minus, size: 35);
+const plus = Icon(CupertinoIcons.plus, size: 35);
+const delete = Icon(CupertinoIcons.delete_left, size: 35);
+const equal = Icon(CupertinoIcons.equal, size: 35);
+
+// SETTINGS PAGE
+const backArrow = Icon(FeatherIcons.arrowLeftCircle);
+const toggleRight = Icon(FeatherIcons.toggleRight, size: 30);
+const toggleLeft = Icon(FeatherIcons.toggleLeft, size: 30);

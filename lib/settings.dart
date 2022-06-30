@@ -1,7 +1,11 @@
 import 'package:cowculator/main.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 
 import 'components/appbar.dart';
+import 'components/colorbuttons.dart';
+import 'components/colors.dart';
+import 'components/icons.dart';
 
 class Settings extends StatefulWidget {
   Settings({Key? key, required this.color}) : super(key: key);
@@ -12,6 +16,31 @@ class Settings extends StatefulWidget {
 }
 
 class _SettingsState extends State<Settings> {
+  bool soundEffects = true;
+  String toggleLabel = "On";
+  Icon toggleIcon = toggleRight;
+  // OFF left, ON right
+
+  _toggleSound() {
+    setState(() {
+      if (soundEffects) {
+        soundEffects = false;
+        toggleLabel = "Off";
+        toggleIcon = toggleLeft;
+      } else {
+        soundEffects = true;
+        toggleLabel = "On";
+        toggleIcon = toggleRight;
+      }
+    });
+  }
+
+  _setColor(Color newColor) {
+    setState(() {
+      widget.color = newColor;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +50,7 @@ class _SettingsState extends State<Settings> {
           title: "SETTINGS",
           color: widget.color,
           leading: IconButton(
-              icon: const Icon(Icons.arrow_back_ios),
+              icon: backArrow,
               onPressed: () {
                 Navigator.pushAndRemoveUntil(
                     context,
@@ -31,14 +60,43 @@ class _SettingsState extends State<Settings> {
               }),
         ),
       ),
-      body: Column(
-        children: const [
-          Padding(
-            padding: EdgeInsets.all(10),
-            child: Text("Nothing to see here folks!",
-                style: TextStyle(fontSize: 18)),
-          )
-        ],
+      body: Padding(
+        padding: const EdgeInsets.only(top: 130, left: 20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // color theme
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text("Color theme", style: TextStyle(fontSize: 25)),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ColorButton(color: pink, action: _setColor),
+                    ColorButton(color: blue, action: _setColor),
+                    ColorButton(color: green, action: _setColor),
+                    ColorButton(color: yellow, action: _setColor),
+                    ColorButton(color: brown, action: _setColor),
+                    ColorButton(color: black, action: _setColor)
+                  ],
+                ),
+              ],
+            ),
+            // sound effects
+            Padding(
+              padding: const EdgeInsets.only(top: 50, right: 30),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("Sound effects: $toggleLabel",
+                      style: const TextStyle(fontSize: 25)),
+                  IconButton(icon: toggleIcon, onPressed: _toggleSound),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

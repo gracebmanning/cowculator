@@ -3,10 +3,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class OperatorButton extends StatelessWidget {
-  const OperatorButton({Key? key, required this.text, required this.action})
+  OperatorButton(
+      {Key? key, required this.text, required this.action, required this.color})
       : super(key: key);
   final String text;
   final action;
+  Color color;
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +16,7 @@ class OperatorButton extends StatelessWidget {
       style: OutlinedButton.styleFrom(
         primary: Colors.black,
         shape: const CircleBorder(),
-        side: const BorderSide(color: pink, width: 2.5),
+        side: BorderSide(color: color, width: 2.5),
       ),
       child: Text(text, style: const TextStyle(fontSize: 25)),
       onPressed: () {
@@ -25,10 +27,12 @@ class OperatorButton extends StatelessWidget {
 }
 
 class OperatorIconButton extends StatelessWidget {
-  const OperatorIconButton({Key? key, required this.icon, this.action})
+  OperatorIconButton(
+      {Key? key, required this.icon, required this.action, required this.color})
       : super(key: key);
-  final icon;
+  final Icon icon;
   final action;
+  Color color;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +40,7 @@ class OperatorIconButton extends StatelessWidget {
       style: TextButton.styleFrom(
         primary: black,
         shape: const CircleBorder(),
-        side: const BorderSide(color: pink, width: 2.5),
+        side: BorderSide(color: color, width: 2.5),
       ),
       child: icon,
       onPressed: () {
@@ -47,19 +51,21 @@ class OperatorIconButton extends StatelessWidget {
 }
 
 class NumButton extends StatelessWidget {
-  const NumButton({Key? key, required this.text, this.action})
+  NumButton(
+      {Key? key, required this.text, required this.action, required this.color})
       : super(key: key);
   final String text;
   final action;
+  Color color;
 
   @override
   Widget build(BuildContext context) {
     return OutlinedButton(
       style: OutlinedButton.styleFrom(
         primary: white,
-        backgroundColor: pink,
+        backgroundColor: color,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
-        side: const BorderSide(width: 2, color: pink),
+        side: BorderSide(width: 2, color: color),
       ),
       child: Text(text, style: const TextStyle(fontSize: 30)),
       onPressed: () {
