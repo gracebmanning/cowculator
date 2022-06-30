@@ -20,7 +20,8 @@ class _MainAppbarState extends State<MainAppbar> {
       title: Text(widget.title,
           style: const TextStyle(fontSize: 25, fontFamily: 'Inconsolata')),
       backgroundColor: widget.color,
-      foregroundColor: (widget.color == black) ? white : black,
+      foregroundColor:
+          (widget.color == black || widget.color == brown) ? white : black,
       actions: [widget.action],
       elevation: 0,
     );
@@ -46,7 +47,8 @@ class _SettingsAppbarState extends State<SettingsAppbar> {
       title: Text(widget.title,
           style: const TextStyle(fontSize: 25, fontFamily: 'Inconsolata')),
       backgroundColor: widget.color,
-      foregroundColor: (widget.color == black) ? white : black,
+      foregroundColor:
+          (widget.color == black || widget.color == brown) ? white : black,
       leading: widget.leading,
       elevation: 0,
     );
