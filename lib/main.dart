@@ -19,9 +19,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Cowculator',
-      theme: ThemeData(
-        primarySwatch: Colors.amber,
-      ),
+      theme: ThemeData(primarySwatch: Colors.amber, fontFamily: 'Inconsolata'),
       home: Main(color: pink),
       routes: {
         '/main/': (context) => Main(color: pink),
@@ -162,7 +160,7 @@ class _MainState extends State<Main> {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
         child: MainAppbar(
-          title: const Text("Cowculator"),
+          title: "COWCULATOR",
           color: widget.color,
           action: IconButton(
               icon: Image.asset('assets/images/settings.png'),

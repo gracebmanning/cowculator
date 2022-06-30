@@ -18,7 +18,7 @@ class _SettingsState extends State<Settings> {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
         child: SettingsAppbar(
-          title: const Text("Settings"),
+          title: "SETTINGS",
           color: widget.color,
           leading: IconButton(
               icon: const Icon(Icons.arrow_back_ios),
