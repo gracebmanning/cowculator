@@ -1,9 +1,11 @@
 import 'package:cowculator/components/buttons.dart';
+import 'package:cowculator/components/globals.dart';
 import 'package:cowculator/settings.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:math_expressions/math_expressions.dart';
-import 'components/globals.dart';
+import 'components/appbar.dart';
+import 'components/colors.dart';
 
 void main() {
   runApp(const App());
@@ -20,17 +22,18 @@ class App extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.amber,
       ),
-      home: const Main(),
+      home: Main(color: pink),
       routes: {
-        '/main/': (context) => const Main(),
-        '/settings/': (context) => const Settings()
+        '/main/': (context) => Main(color: pink),
+        '/settings/': (context) => Settings(color: currentColor)
       },
     );
   }
 }
 
 class Main extends StatefulWidget {
-  const Main({Key? key}) : super(key: key);
+  Main({Key? key, required this.color}) : super(key: key);
+  Color color;
 
   @override
   State<Main> createState() => _MainState();
@@ -156,19 +159,21 @@ class _MainState extends State<Main> {
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Cowculator"),
-        backgroundColor: currentColor,
-        actions: [
-          IconButton(
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(60),
+        child: MainAppbar(
+          title: const Text("Cowculator"),
+          color: widget.color,
+          action: IconButton(
               icon: Image.asset('assets/images/settings.png'),
               onPressed: () {
-                Navigator.of(context).pushNamedAndRemoveUntil(
-                  '/settings/',
-                  (route) => false,
-                );
-              })
-        ],
+                Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => Settings(color: widget.color)),
+                    (route) => false);
+              }),
+        ),
       ),
       body: Center(
         child: Column(

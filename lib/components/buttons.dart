@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class OperatorButton extends StatelessWidget {
-  const OperatorButton({Key? key, required this.text, this.action})
+  const OperatorButton({Key? key, required this.text, required this.action})
       : super(key: key);
   final String text;
   final action;
