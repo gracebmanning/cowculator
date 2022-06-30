@@ -1,6 +1,9 @@
 import 'package:cowculator/components/buttons.dart';
 import 'package:cowculator/settings.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:math_expressions/math_expressions.dart';
+import 'components/globals.dart';
 
 void main() {
   runApp(const App());
@@ -35,10 +38,116 @@ class Main extends StatefulWidget {
 
 class _MainState extends State<Main> {
   int result = 0;
+  String evalString = "";
+  String displayString = "";
+  bool finished = false;
+  bool openParen = false;
+  bool containsDecimal = false;
 
-  void _incrementCounter() {
+  _clear() {
     setState(() {
-      result++;
+      displayString = "";
+      evalString = "";
+      openParen = false;
+      containsDecimal = false;
+      finished = true;
+    });
+  }
+
+  _parentheses() {
+    setState(() {
+      if (openParen) {
+        displayString += ')';
+        evalString += ')';
+        openParen = false;
+      } else {
+        displayString += '(';
+        evalString += '(';
+        openParen = true;
+      }
+    });
+  }
+
+  _percent() {
+    setState(() {
+      displayString += '%';
+      evalString += '%'; // is this correct?
+    });
+  }
+
+  _divide() {
+    setState(() {
+      displayString += '/';
+      evalString += '/';
+    });
+  }
+
+  _multiply() {
+    setState(() {
+      displayString += 'x';
+      evalString += '*';
+    });
+  }
+
+  _subtract() {
+    setState(() {
+      displayString += '-';
+      evalString += '-';
+    });
+  }
+
+  _add() {
+    setState(() {
+      displayString += '+';
+      evalString += '+';
+    });
+  }
+
+  _decimal() {
+    setState(() {
+      displayString += '.';
+      evalString += '.';
+      containsDecimal = true;
+    });
+  }
+
+  _delete() {
+    if (displayString.isNotEmpty) {
+      setState(() {
+        displayString = displayString.substring(0, displayString.length - 1);
+      });
+    }
+  }
+
+  _numeric(int num) {
+    setState(() {
+      if (finished) {
+        // start new expression
+        finished = false;
+        displayString = num.toString();
+        evalString = num.toString();
+      } else {
+        // add to current expression
+        displayString += num.toString();
+        evalString += num.toString();
+      }
+    });
+  }
+
+  _evaluate() {
+    Parser p = Parser();
+    Expression exp = p.parse(evalString);
+    ContextModel cm = ContextModel();
+    double eval = exp.evaluate(EvaluationType.REAL, cm);
+    setState(() {
+      if (containsDecimal) {
+        displayString = eval.toString();
+      } else {
+        displayString = eval.toInt().toString();
+      }
+      finished = true;
+      openParen = false;
+      containsDecimal = false;
     });
   }
 
@@ -49,9 +158,10 @@ class _MainState extends State<Main> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Cowculator"),
+        backgroundColor: currentColor,
         actions: [
           IconButton(
-              icon: const Icon(Icons.settings),
+              icon: Image.asset('assets/images/settings.png'),
               onPressed: () {
                 Navigator.of(context).pushNamedAndRemoveUntil(
                   '/settings/',
@@ -67,12 +177,12 @@ class _MainState extends State<Main> {
             SizedBox(
               height: 150,
               child: Padding(
-                padding: const EdgeInsets.all(20),
+                padding: const EdgeInsets.only(right: 20),
                 child: Align(
                   alignment: Alignment.centerRight,
                   child: Text(
-                    '$result',
-                    style: Theme.of(context).textTheme.headline4,
+                    displayString,
+                    style: const TextStyle(fontSize: 40),
                   ),
                 ),
               ),
@@ -84,43 +194,63 @@ class _MainState extends State<Main> {
                 crossAxisSpacing: 10,
                 mainAxisSpacing: 10,
                 crossAxisCount: 4,
-                children: const [
+                children: [
                   // first row
-                  OperatorButton(text: "AC"),
-                  OperatorButton(text: "( )"),
-                  OperatorButton(text: "%"),
-                  OperatorButton(text: "/"),
+                  OperatorButton(text: "CLR", action: _clear),
+                  OperatorButton(text: "( )", action: _parentheses),
+                  OperatorIconButton(
+                    icon: const Icon(CupertinoIcons.percent, size: 40),
+                    action: _percent,
+                  ),
+                  OperatorIconButton(
+                    icon: const Icon(CupertinoIcons.divide, size: 40),
+                    action: _divide,
+                  ),
                   // second row
-                  NumButton(text: "7"),
-                  NumButton(text: "8"),
-                  NumButton(text: "9"),
-                  OperatorButton(text: "X"),
+                  NumButton(text: "7", action: _numeric),
+                  NumButton(text: "8", action: _numeric),
+                  NumButton(text: "9", action: _numeric),
+                  OperatorIconButton(
+                    icon: const Icon(CupertinoIcons.multiply, size: 40),
+                    action: _multiply,
+                  ),
                   // third row
-                  NumButton(text: "4"),
-                  NumButton(text: "5"),
-                  NumButton(text: "6"),
-                  OperatorButton(text: "-"),
+                  NumButton(text: "4", action: _numeric),
+                  NumButton(text: "5", action: _numeric),
+                  NumButton(text: "6", action: _numeric),
+                  OperatorIconButton(
+                    icon: const Icon(CupertinoIcons.minus, size: 40),
+                    action: _subtract,
+                  ),
                   // fourth row
-                  NumButton(text: "1"),
-                  NumButton(text: "2"),
-                  NumButton(text: "3"),
-                  OperatorButton(text: "+"),
+                  NumButton(text: "1", action: _numeric),
+                  NumButton(text: "2", action: _numeric),
+                  NumButton(text: "3", action: _numeric),
+                  OperatorIconButton(
+                    icon: const Icon(CupertinoIcons.plus, size: 40),
+                    action: _add,
+                  ),
                   // fifth row
-                  NumButton(text: "0"),
-                  OperatorButton(text: "."),
-                  OperatorButton(text: "DEL"),
-                  OperatorButton(text: "="),
+                  NumButton(text: "0", action: _numeric),
+                  OperatorButton(
+                    text: ".",
+                    action: _decimal,
+                  ),
+                  OperatorIconButton(
+                    icon: const Icon(CupertinoIcons.delete_left, size: 40),
+                    action: _delete,
+                  ),
+                  OperatorIconButton(
+                    icon: const Icon(CupertinoIcons.equal, size: 40),
+                    action: _evaluate,
+                  ),
                 ],
               ),
             )
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
