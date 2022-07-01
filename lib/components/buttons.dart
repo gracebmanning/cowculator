@@ -1,13 +1,14 @@
-import 'package:cowculator/components/colors.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:cowculator/constants/blobs.dart';
+import 'package:cowculator/constants/colors.dart';
+import 'package:blobs/blobs.dart';
 import 'package:flutter/material.dart';
 
-class OperatorButton extends StatelessWidget {
-  OperatorButton(
+class OperatorButtonRound extends StatelessWidget {
+  OperatorButtonRound(
       {Key? key, required this.text, required this.action, required this.color})
       : super(key: key);
   final String text;
-  final action;
+  dynamic action;
   Color color;
 
   @override
@@ -31,7 +32,7 @@ class OperatorIconButton extends StatelessWidget {
       {Key? key, required this.icon, required this.action, required this.color})
       : super(key: key);
   final Icon icon;
-  final action;
+  dynamic action;
   Color color;
 
   @override
@@ -50,12 +51,12 @@ class OperatorIconButton extends StatelessWidget {
   }
 }
 
-class NumButton extends StatelessWidget {
-  NumButton(
+class NumButtonRound extends StatelessWidget {
+  NumButtonRound(
       {Key? key, required this.text, required this.action, required this.color})
       : super(key: key);
   final String text;
-  final action;
+  dynamic action;
   Color color;
 
   @override

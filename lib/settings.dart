@@ -4,8 +4,8 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 
 import 'components/appbar.dart';
 import 'components/colorbuttons.dart';
-import 'components/colors.dart';
-import 'components/icons.dart';
+import 'constants/colors.dart';
+import 'constants/icons.dart';
 
 class Settings extends StatefulWidget {
   Settings({Key? key, required this.color}) : super(key: key);

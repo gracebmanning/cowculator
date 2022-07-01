@@ -1,8 +1,45 @@
 import 'package:flutter/material.dart';
+import 'package:new_gradient_app_bar/new_gradient_app_bar.dart';
+import '../constants/colors.dart';
 
-import 'colors.dart';
+class MainAppbarGradient extends StatelessWidget {
+  MainAppbarGradient(
+      {Key? key, required this.title, required this.color, this.action})
+      : super(key: key);
+  String title;
+  Color color;
+  dynamic action;
 
-class MainAppbar extends StatefulWidget {
+  @override
+  Widget build(BuildContext context) {
+    return NewGradientAppBar(
+      title: Text(
+        title,
+        style: TextStyle(
+            fontSize: 25,
+            fontFamily: 'Inconsolata',
+            color: (color == black || color == brown) ? white : black),
+      ),
+      actions: [action],
+      elevation: 0,
+      gradient: LinearGradient(
+        colors: [
+          color,
+          color.withOpacity(0.5),
+          color.withOpacity(0.7),
+          color.withOpacity(0.8),
+          color.withOpacity(0.9),
+          white,
+        ],
+        begin: Alignment.topCenter,
+        end: Alignment.bottomCenter,
+        stops: const [0.0, 0.2, 0.4, 0.6, 0.8, 1.0],
+      ),
+    );
+  }
+}
+
+class MainAppbar extends StatelessWidget {
   MainAppbar({Key? key, required this.title, required this.color, this.action})
       : super(key: key);
   String title;
@@ -10,25 +47,19 @@ class MainAppbar extends StatefulWidget {
   dynamic action;
 
   @override
-  State<MainAppbar> createState() => _MainAppbarState();
-}
-
-class _MainAppbarState extends State<MainAppbar> {
-  @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: Text(widget.title,
+      title: Text(title,
           style: const TextStyle(fontSize: 25, fontFamily: 'Inconsolata')),
-      backgroundColor: widget.color,
-      foregroundColor:
-          (widget.color == black || widget.color == brown) ? white : black,
-      actions: [widget.action],
+      backgroundColor: color,
+      foregroundColor: (color == black || color == brown) ? white : black,
+      actions: [action],
       elevation: 0,
     );
   }
 }
 
-class SettingsAppbar extends StatefulWidget {
+class SettingsAppbar extends StatelessWidget {
   SettingsAppbar(
       {Key? key, required this.title, required this.color, this.leading})
       : super(key: key);
@@ -37,19 +68,13 @@ class SettingsAppbar extends StatefulWidget {
   dynamic leading;
 
   @override
-  State<SettingsAppbar> createState() => _SettingsAppbarState();
-}
-
-class _SettingsAppbarState extends State<SettingsAppbar> {
-  @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: Text(widget.title,
+      title: Text(title,
           style: const TextStyle(fontSize: 25, fontFamily: 'Inconsolata')),
-      backgroundColor: widget.color,
-      foregroundColor:
-          (widget.color == black || widget.color == brown) ? white : black,
-      leading: widget.leading,
+      backgroundColor: color,
+      foregroundColor: (color == black || color == brown) ? white : black,
+      leading: leading,
       elevation: 0,
     );
   }

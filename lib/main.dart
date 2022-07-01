@@ -1,8 +1,8 @@
 import 'components/buttons.dart';
-import 'components/globals.dart';
+import 'components/blobbuttons.dart';
 import 'components/appbar.dart';
-import 'components/colors.dart';
-import 'components/icons.dart';
+import 'constants/colors.dart';
+import 'constants/icons.dart';
 import 'settings.dart';
 import 'package:flutter/material.dart';
 import 'package:math_expressions/math_expressions.dart';
@@ -19,11 +19,11 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Cowculator',
-      theme: ThemeData(primarySwatch: Colors.amber, fontFamily: 'Inconsolata'),
+      theme: ThemeData(primaryColor: Colors.black, fontFamily: 'Inconsolata'),
       home: Main(color: pink),
       routes: {
         '/main/': (context) => Main(color: pink),
-        '/settings/': (context) => Settings(color: currentColor)
+        '/settings/': (context) => Settings(color: pink)
       },
     );
   }
@@ -157,6 +157,7 @@ class _MainState extends State<Main> {
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
     return Scaffold(
+      backgroundColor: white,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
         child: MainAppbar(
@@ -164,6 +165,9 @@ class _MainState extends State<Main> {
           color: widget.color,
           action: IconButton(
               icon: settings,
+              color: (widget.color == black || widget.color == brown)
+                  ? white
+                  : black,
               onPressed: () {
                 Navigator.pushAndRemoveUntil(
                     context,
@@ -176,6 +180,7 @@ class _MainState extends State<Main> {
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             SizedBox(
               height: 150,
