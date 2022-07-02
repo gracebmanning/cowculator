@@ -1,38 +1,58 @@
+import 'package:cowculator/history.dart';
 import 'package:cowculator/main.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_feather_icons/flutter_feather_icons.dart';
-
 import 'components/appbar.dart';
 import 'components/colorbuttons.dart';
 import 'constants/colors.dart';
 import 'constants/icons.dart';
 
 class Settings extends StatefulWidget {
-  Settings({Key? key, required this.color}) : super(key: key);
+  Settings({Key? key, required this.color, required this.soundEffects})
+      : super(key: key);
   Color color;
+  bool soundEffects;
 
   @override
   State<Settings> createState() => _SettingsState();
 }
 
 class _SettingsState extends State<Settings> {
-  bool soundEffects = true;
-  String toggleLabel = "On";
-  Icon toggleIcon = toggleRight;
+  late String toggleLabel = widget.soundEffects ? "On" : "Off";
+  late Icon toggleIcon = widget.soundEffects ? toggleRight : toggleLeft;
   // OFF left, ON right
+
+  _viewMain() {
+    Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+            builder: (context) =>
+                Main(color: widget.color, soundEffects: widget.soundEffects)),
+        (route) => false);
+  }
 
   _toggleSound() {
     setState(() {
-      if (soundEffects) {
-        soundEffects = false;
+      if (widget.soundEffects) {
+        widget.soundEffects = false;
         toggleLabel = "Off";
         toggleIcon = toggleLeft;
       } else {
-        soundEffects = true;
+        widget.soundEffects = true;
         toggleLabel = "On";
         toggleIcon = toggleRight;
       }
     });
+  }
+
+  _viewHistory() {
+    Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+            builder: (context) => History(
+                  color: widget.color,
+                  soundEffects: widget.soundEffects,
+                )),
+        (route) => false);
   }
 
   _setColor(Color newColor) {
@@ -52,11 +72,7 @@ class _SettingsState extends State<Settings> {
           leading: IconButton(
               icon: backArrow,
               onPressed: () {
-                Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => Main(color: widget.color)),
-                    (route) => false);
+                _viewMain();
               }),
         ),
       ),
@@ -92,6 +108,17 @@ class _SettingsState extends State<Settings> {
                   Text("Sound effects: $toggleLabel",
                       style: const TextStyle(fontSize: 25)),
                   IconButton(icon: toggleIcon, onPressed: _toggleSound),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 50, right: 30),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text("View results history",
+                      style: TextStyle(fontSize: 25)),
+                  IconButton(icon: file, onPressed: _viewHistory),
                 ],
               ),
             ),

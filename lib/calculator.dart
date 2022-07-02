@@ -1,13 +1,14 @@
-import 'package:cowculator/constants/icons.dart';
 import 'package:math_expressions/math_expressions.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 class Calculator {
   String result = "";
-  bool finished = false;
+  bool startNewExp = false;
   bool openParen = false;
-  bool containsDecimal = false;
+  AudioPlayer player = AudioPlayer();
 
-  Calculator();
+  bool soundEffects;
+  Calculator(this.soundEffects);
 
   String getResult() {
     return result;
@@ -75,40 +76,50 @@ class Calculator {
 
   void clear() {
     result = "";
+    startNewExp = false;
     openParen = false;
-    containsDecimal = false;
-    finished = true;
   }
 
   void parentheses() {
-    // TODO: Check finished parameter (in case expression starts with parentheses)
-    if (openParen) {
-      result += ')';
-      openParen = false;
-    } else {
+    if (result.isEmpty) {
+      // start new expression
       result += '(';
       openParen = true;
+    } else {
+      // add to current expression
+      if (openParen) {
+        result += ')';
+        openParen = false;
+      } else {
+        result += '(';
+        openParen = true;
+      }
     }
   }
 
   void percent() {
     result += '%';
+    startNewExp = false;
   }
 
   void divide() {
     result += '/';
+    startNewExp = false;
   }
 
   void multiply() {
     result += 'x';
+    startNewExp = false;
   }
 
   void subtract() {
     result += '-';
+    startNewExp = false;
   }
 
   void add() {
-    result = result + '+';
+    result += '+';
+    startNewExp = false;
   }
 
   void delete() {
@@ -118,15 +129,21 @@ class Calculator {
   }
 
   void decimal() {
-    result += '.';
-    containsDecimal = true;
+    if (result.isEmpty) {
+      // start new expression
+      result += '0.';
+      startNewExp = false;
+    } else {
+      // add to current expression
+      result += '.';
+    }
   }
 
   numeric(int num) {
-    if (finished) {
+    if (startNewExp) {
       // start new expression
-      finished = false;
       result = num.toString();
+      startNewExp = false;
     } else {
       // add to current expression
       result += num.toString();
@@ -134,22 +151,67 @@ class Calculator {
   }
 
   void evaluate() {
-    // process string input
-    // replace x with *, etc.
-    // formatting % signs
-
-    Parser p = Parser();
-    Expression exp = p.parse(result);
-    ContextModel cm = ContextModel();
-    double eval = exp.evaluate(EvaluationType.REAL, cm);
-
-    if (containsDecimal) {
-      result = eval.toString();
-    } else {
-      result = eval.toInt().toString();
+    if (soundEffects) {
+      playSound();
     }
-    finished = true;
+
+    if (result.isNotEmpty) {
+      // process string input
+      result = result.replaceAll('x', '*'); // replace x with *, etc.
+      // formatting % signs
+      result = formatPercents(result);
+
+      Parser p = Parser();
+      Expression exp = p.parse(result);
+      ContextModel cm = ContextModel();
+      double eval = exp.evaluate(EvaluationType.REAL, cm);
+
+      result = formatResult(eval);
+    }
+    startNewExp = true;
     openParen = false;
-    containsDecimal = false;
+  }
+
+  void playSound() async {
+    await player.play(AssetSource('CowMoo2.mp3'));
+  }
+
+  String formatPercents(String str) {
+    while (str.contains('%')) {
+      final index = str.indexOf('%', 0);
+
+      // get numeric characters before percent sign
+      String strNum = '';
+      int i = index - 1;
+      while (i >= 0 && double.tryParse(str[i]) != null) {
+        strNum = str[i] + strNum;
+        i--;
+      }
+      double num = double.parse(strNum);
+
+      // divide number by 100
+      num = num / 100;
+
+      // replace number+parentheses with decimal value
+      // if more numbers come after % sign, add multiplication sign
+      if (index == str.length - 1) {
+        str = str.replaceFirst(strNum + '%', num.toString());
+      } else {
+        str = str.replaceFirst(strNum + '%', num.toString() + '*');
+      }
+    }
+
+    return str;
+  }
+
+  String formatResult(double input) {
+    String str = "";
+
+    if (input.isInfinite) {
+      str = input.toStringAsFixed(input.truncateToDouble() == input ? 0 : 6);
+    } else {
+      str = input.toStringAsFixed(input.truncateToDouble() == input ? 0 : 2);
+    }
+    return str;
   }
 } // end of Calculator class

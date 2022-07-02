@@ -1,18 +1,13 @@
-import 'package:cowculator/calculator.dart';
-
-import 'components/buttons.dart';
+import 'calculator.dart';
 import 'components/blobbuttons.dart';
 import 'components/appbar.dart';
 import 'constants/colors.dart';
 import 'constants/icons.dart';
 import 'settings.dart';
 import 'package:flutter/material.dart';
-import 'package:math_expressions/math_expressions.dart';
 
-// TODO: Work on calculate.dart for refactoring calculation operations
-// TODO: Add moo sound effect to = sign button
-
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const App());
 }
 
@@ -25,28 +20,37 @@ class App extends StatelessWidget {
     return MaterialApp(
       title: 'Cowculator',
       theme: ThemeData(primaryColor: Colors.black, fontFamily: 'Inconsolata'),
-      home: Main(color: pink),
+      home: Main(
+        color: pink,
+        soundEffects: true,
+      ),
       routes: {
-        '/main/': (context) => Main(color: pink),
-        '/settings/': (context) => Settings(color: pink)
+        '/main/': (context) => Main(color: pink, soundEffects: true),
+        '/settings/': (context) => Settings(color: pink, soundEffects: true),
+        '/history/': (context) => Settings(
+              color: pink,
+              soundEffects: true,
+            )
       },
     );
   }
 }
 
 class Main extends StatefulWidget {
-  Main({Key? key, required this.color}) : super(key: key);
+  Main({Key? key, required this.color, required this.soundEffects})
+      : super(key: key);
   Color color;
+  bool soundEffects;
 
   @override
   State<Main> createState() => _MainState();
 }
 
 class _MainState extends State<Main> {
-  Calculator c = Calculator();
+  late Calculator c = Calculator(widget.soundEffects);
   String displayString = "";
 
-  _update(String val) {
+  void _update(String val) {
     c.input(val);
     setState(() {
       displayString = c.getResult();
@@ -73,7 +77,10 @@ class _MainState extends State<Main> {
                 Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => Settings(color: widget.color)),
+                        builder: (context) => Settings(
+                              color: widget.color,
+                              soundEffects: widget.soundEffects,
+                            )),
                     (route) => false);
               }),
         ),

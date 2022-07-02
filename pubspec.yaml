@@ -37,6 +37,8 @@ dependencies:
   flutter_feather_icons: ^2.0.0+1
   math_expressions: ^2.3.1
   blobs: ^2.0.0
+  audioplayers: ^1.0.1
+  shared_preferences: ^2.0.15
   
 
 dev_dependencies:
@@ -60,6 +62,9 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+
+  assets:
+    - assets/CowMoo2.mp3
 
   fonts:
     - family: Inconsolata
