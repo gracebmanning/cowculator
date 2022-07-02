@@ -27,8 +27,8 @@ class OperatorButtonRound extends StatelessWidget {
   }
 }
 
-class OperatorIconButton extends StatelessWidget {
-  OperatorIconButton(
+class OperatorIconButtonRound extends StatelessWidget {
+  OperatorIconButtonRound(
       {Key? key, required this.icon, required this.action, required this.color})
       : super(key: key);
   final Icon icon;

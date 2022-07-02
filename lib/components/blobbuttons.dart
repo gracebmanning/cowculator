@@ -23,10 +23,44 @@ class OperatorButton extends StatelessWidget {
       child: TextButton(
         child: Text(
           text,
-          style: const TextStyle(fontSize: 25, color: black),
+          style:
+              TextStyle(fontSize: 25, color: (color == brown) ? brown : black),
         ),
         onPressed: () {
-          action();
+          action(text);
+        },
+      ),
+    );
+  }
+}
+
+class OperatorIconButton extends StatelessWidget {
+  OperatorIconButton(
+      {Key? key,
+      required this.text,
+      required this.icon,
+      required this.action,
+      required this.color})
+      : super(key: key);
+  String text;
+  final Icon icon;
+  dynamic action;
+  Color color;
+
+  @override
+  Widget build(BuildContext context) {
+    BlobController blobCtrl = BlobController();
+
+    return Blob.fromID(
+      id: const ['15-9-890934'],
+      size: 80,
+      styles: BlobStyles(color: color, fillType: BlobFillType.stroke),
+      controller: blobCtrl,
+      child: TextButton(
+        style: TextButton.styleFrom(primary: (color == brown) ? brown : black),
+        child: icon,
+        onPressed: () {
+          action(text);
         },
       ),
     );
@@ -56,7 +90,7 @@ class NumButton extends StatelessWidget {
           style: const TextStyle(fontSize: 30, color: white),
         ),
         onPressed: () {
-          action(int.parse(text));
+          action(text);
         },
       ),
     );

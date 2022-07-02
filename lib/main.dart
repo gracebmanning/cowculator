@@ -1,3 +1,5 @@
+import 'package:cowculator/calculator.dart';
+
 import 'components/buttons.dart';
 import 'components/blobbuttons.dart';
 import 'components/appbar.dart';
@@ -6,6 +8,9 @@ import 'constants/icons.dart';
 import 'settings.dart';
 import 'package:flutter/material.dart';
 import 'package:math_expressions/math_expressions.dart';
+
+// TODO: Work on calculate.dart for refactoring calculation operations
+// TODO: Add moo sound effect to = sign button
 
 void main() {
   runApp(const App());
@@ -38,117 +43,13 @@ class Main extends StatefulWidget {
 }
 
 class _MainState extends State<Main> {
-  int result = 0;
-  String evalString = "";
+  Calculator c = Calculator();
   String displayString = "";
-  bool finished = false;
-  bool openParen = false;
-  bool containsDecimal = false;
 
-  _clear() {
+  _update(String val) {
+    c.input(val);
     setState(() {
-      displayString = "";
-      evalString = "";
-      openParen = false;
-      containsDecimal = false;
-      finished = true;
-    });
-  }
-
-  _parentheses() {
-    setState(() {
-      if (openParen) {
-        displayString += ')';
-        evalString += ')';
-        openParen = false;
-      } else {
-        displayString += '(';
-        evalString += '(';
-        openParen = true;
-      }
-    });
-  }
-
-  _percent() {
-    setState(() {
-      displayString += '%';
-      evalString += '%'; // is this correct?
-    });
-  }
-
-  _divide() {
-    setState(() {
-      displayString += '/';
-      evalString += '/';
-    });
-  }
-
-  _multiply() {
-    setState(() {
-      displayString += 'x';
-      evalString += '*';
-    });
-  }
-
-  _subtract() {
-    setState(() {
-      displayString += '-';
-      evalString += '-';
-    });
-  }
-
-  _add() {
-    setState(() {
-      displayString += '+';
-      evalString += '+';
-    });
-  }
-
-  _decimal() {
-    setState(() {
-      displayString += '.';
-      evalString += '.';
-      containsDecimal = true;
-    });
-  }
-
-  _delete() {
-    if (displayString.isNotEmpty) {
-      setState(() {
-        displayString = displayString.substring(0, displayString.length - 1);
-      });
-    }
-  }
-
-  _numeric(int num) {
-    setState(() {
-      if (finished) {
-        // start new expression
-        finished = false;
-        displayString = num.toString();
-        evalString = num.toString();
-      } else {
-        // add to current expression
-        displayString += num.toString();
-        evalString += num.toString();
-      }
-    });
-  }
-
-  _evaluate() {
-    Parser p = Parser();
-    Expression exp = p.parse(evalString);
-    ContextModel cm = ContextModel();
-    double eval = exp.evaluate(EvaluationType.REAL, cm);
-    setState(() {
-      if (containsDecimal) {
-        displayString = eval.toString();
-      } else {
-        displayString = eval.toInt().toString();
-      }
-      finished = true;
-      openParen = false;
-      containsDecimal = false;
+      displayString = c.getResult();
     });
   }
 
@@ -209,39 +110,60 @@ class _MainState extends State<Main> {
                 children: [
                   // first row
                   OperatorButton(
-                      text: "CLR", action: _clear, color: widget.color),
+                      text: "CLR", action: _update, color: widget.color),
                   OperatorButton(
-                      text: "( )", action: _parentheses, color: widget.color),
+                      text: "( )", action: _update, color: widget.color),
                   OperatorIconButton(
-                      icon: percent, action: _percent, color: widget.color),
+                      text: "%",
+                      icon: percent,
+                      action: _update,
+                      color: widget.color),
                   OperatorIconButton(
-                      icon: divide, action: _divide, color: widget.color),
+                      text: "/",
+                      icon: divide,
+                      action: _update,
+                      color: widget.color),
                   // second row
-                  NumButton(text: "7", action: _numeric, color: widget.color),
-                  NumButton(text: "8", action: _numeric, color: widget.color),
-                  NumButton(text: "9", action: _numeric, color: widget.color),
+                  NumButton(text: "7", action: _update, color: widget.color),
+                  NumButton(text: "8", action: _update, color: widget.color),
+                  NumButton(text: "9", action: _update, color: widget.color),
                   OperatorIconButton(
-                      icon: multiply, action: _multiply, color: widget.color),
+                      text: "X",
+                      icon: multiply,
+                      action: _update,
+                      color: widget.color),
                   // third row
-                  NumButton(text: "4", action: _numeric, color: widget.color),
-                  NumButton(text: "5", action: _numeric, color: widget.color),
-                  NumButton(text: "6", action: _numeric, color: widget.color),
+                  NumButton(text: "4", action: _update, color: widget.color),
+                  NumButton(text: "5", action: _update, color: widget.color),
+                  NumButton(text: "6", action: _update, color: widget.color),
                   OperatorIconButton(
-                      icon: minus, action: _subtract, color: widget.color),
+                      text: "-",
+                      icon: minus,
+                      action: _update,
+                      color: widget.color),
                   // fourth row
-                  NumButton(text: "1", action: _numeric, color: widget.color),
-                  NumButton(text: "2", action: _numeric, color: widget.color),
-                  NumButton(text: "3", action: _numeric, color: widget.color),
+                  NumButton(text: "1", action: _update, color: widget.color),
+                  NumButton(text: "2", action: _update, color: widget.color),
+                  NumButton(text: "3", action: _update, color: widget.color),
                   OperatorIconButton(
-                      icon: plus, action: _add, color: widget.color),
+                      text: "+",
+                      icon: plus,
+                      action: _update,
+                      color: widget.color),
                   // fifth row
-                  NumButton(text: "0", action: _numeric, color: widget.color),
+                  NumButton(text: "0", action: _update, color: widget.color),
                   OperatorButton(
-                      text: ".", action: _decimal, color: widget.color),
+                      text: ".", action: _update, color: widget.color),
                   OperatorIconButton(
-                      icon: delete, action: _delete, color: widget.color),
+                      text: "DEL",
+                      icon: delete,
+                      action: _update,
+                      color: widget.color),
                   OperatorIconButton(
-                      icon: equal, action: _evaluate, color: widget.color),
+                      text: "=",
+                      icon: equal,
+                      action: _update,
+                      color: widget.color),
                 ],
               ),
             )

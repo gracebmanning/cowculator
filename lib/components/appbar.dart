@@ -1,8 +1,48 @@
 import 'package:flutter/material.dart';
-import 'package:new_gradient_app_bar/new_gradient_app_bar.dart';
 import '../constants/colors.dart';
 
-class MainAppbarGradient extends StatelessWidget {
+class MainAppbar extends StatelessWidget {
+  MainAppbar({Key? key, required this.title, required this.color, this.action})
+      : super(key: key);
+  String title;
+  Color color;
+  dynamic action;
+
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+      title: Text(title,
+          style: const TextStyle(fontSize: 25, fontFamily: 'Inconsolata')),
+      backgroundColor: color,
+      foregroundColor: (color == black || color == brown) ? white : black,
+      actions: [action],
+      elevation: 0,
+    );
+  }
+}
+
+class SettingsAppbar extends StatelessWidget {
+  SettingsAppbar(
+      {Key? key, required this.title, required this.color, this.leading})
+      : super(key: key);
+  String title;
+  Color color;
+  dynamic leading;
+
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+      title: Text(title, style: const TextStyle(fontSize: 25)),
+      backgroundColor: color,
+      foregroundColor: (color == black || color == brown) ? white : black,
+      leading: leading,
+      elevation: 0,
+    );
+  }
+}
+
+// flutter pub get new_gradient_app_bar to use
+/*class MainAppbarGradient extends StatelessWidget {
   MainAppbarGradient(
       {Key? key, required this.title, required this.color, this.action})
       : super(key: key);
@@ -37,45 +77,4 @@ class MainAppbarGradient extends StatelessWidget {
       ),
     );
   }
-}
-
-class MainAppbar extends StatelessWidget {
-  MainAppbar({Key? key, required this.title, required this.color, this.action})
-      : super(key: key);
-  String title;
-  Color color;
-  dynamic action;
-
-  @override
-  Widget build(BuildContext context) {
-    return AppBar(
-      title: Text(title,
-          style: const TextStyle(fontSize: 25, fontFamily: 'Inconsolata')),
-      backgroundColor: color,
-      foregroundColor: (color == black || color == brown) ? white : black,
-      actions: [action],
-      elevation: 0,
-    );
-  }
-}
-
-class SettingsAppbar extends StatelessWidget {
-  SettingsAppbar(
-      {Key? key, required this.title, required this.color, this.leading})
-      : super(key: key);
-  String title;
-  Color color;
-  dynamic leading;
-
-  @override
-  Widget build(BuildContext context) {
-    return AppBar(
-      title: Text(title,
-          style: const TextStyle(fontSize: 25, fontFamily: 'Inconsolata')),
-      backgroundColor: color,
-      foregroundColor: (color == black || color == brown) ? white : black,
-      leading: leading,
-      elevation: 0,
-    );
-  }
-}
+}*/
