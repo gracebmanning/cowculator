@@ -1,11 +1,6 @@
 # Cowculator
 Cow-themed calculator mobile app.
 
-# Table of Contents
-1. [Versions](#versions)
-2. [Codebase](#codebase)
-3. [Credits](#credits)
-
 ## Versions
 ### 1.0.0 (TBD)
 Initial build. Includes basic calculator functions. Color options: pink, blue, green, yellow, brown, black. Cow moo sound effect when equal sign operator is pressed. Maintains basic log of calculator history, which can be cleared by user.
