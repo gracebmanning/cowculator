@@ -1,5 +1,8 @@
+import 'package:intl/intl.dart';
 import 'package:math_expressions/math_expressions.dart';
 import 'package:audioplayers/audioplayers.dart';
+
+import 'localstorage.dart';
 
 class Calculator {
   String result = "";
@@ -7,8 +10,10 @@ class Calculator {
   bool openParen = false;
   AudioPlayer player = AudioPlayer();
 
-  bool soundEffects;
-  Calculator(this.soundEffects);
+  LocalStorage storage = LocalStorage();
+  bool soundEffects = true;
+
+  Calculator();
 
   String getResult() {
     return result;
@@ -151,25 +156,43 @@ class Calculator {
   }
 
   void evaluate() {
+    //getSoundEffects(); // update sound effects value
+    Future.delayed(Duration.zero, () async {
+      soundEffects = await storage.getSoundEffects();
+    });
+
     if (soundEffects) {
       playSound();
     }
 
     if (result.isNotEmpty) {
+      String nonformattedResult = result;
       // process string input
       result = result.replaceAll('x', '*'); // replace x with *, etc.
       // formatting % signs
       result = formatPercents(result);
+      // format parentheses as multiplication signs
+      result = formatParentheses(result);
 
       Parser p = Parser();
       Expression exp = p.parse(result);
       ContextModel cm = ContextModel();
       double eval = exp.evaluate(EvaluationType.REAL, cm);
 
-      result = formatResult(eval);
+      String finalResult = formatResult(eval);
+      createHistoryItem(nonformattedResult, finalResult);
+
+      result = finalResult;
     }
     startNewExp = true;
     openParen = false;
+  }
+
+  void getSoundEffects() {
+    () async {
+      bool val = await storage.getSoundEffects();
+      soundEffects = val;
+    }();
   }
 
   void playSound() async {
@@ -204,6 +227,11 @@ class Calculator {
     return str;
   }
 
+  // TODO: IMPLEMENT
+  String formatParentheses(String str) {
+    return str;
+  }
+
   String formatResult(double input) {
     String str = "";
 
@@ -213,5 +241,13 @@ class Calculator {
       str = input.toStringAsFixed(input.truncateToDouble() == input ? 0 : 2);
     }
     return str;
+  }
+
+  void createHistoryItem(String expression, String result) {
+    DateTime now = DateTime.now().toLocal();
+    String formattedDate = DateFormat('yyyy-MM-dd kk:mm').format(now);
+    String item = formattedDate + ' ' + expression + '=' + result;
+    print(item);
+    storage.addHistoryItem(item);
   }
 } // end of Calculator class

@@ -1,18 +1,20 @@
+import 'localstorage.dart';
 import 'calculator.dart';
 import 'components/blobbuttons.dart';
 import 'components/appbar.dart';
 import 'constants/colors.dart';
 import 'constants/icons.dart';
+import 'history.dart';
 import 'settings.dart';
 import 'package:flutter/material.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(const App());
+  runApp(App());
 }
 
 class App extends StatelessWidget {
-  const App({Key? key}) : super(key: key);
+  App({Key? key}) : super(key: key);
 
   // This widget is the root of your application.
   @override
@@ -20,35 +22,39 @@ class App extends StatelessWidget {
     return MaterialApp(
       title: 'Cowculator',
       theme: ThemeData(primaryColor: Colors.black, fontFamily: 'Inconsolata'),
-      home: Main(
-        color: pink,
-        soundEffects: true,
-      ),
+      home: Main(),
       routes: {
-        '/main/': (context) => Main(color: pink, soundEffects: true),
-        '/settings/': (context) => Settings(color: pink, soundEffects: true),
-        '/history/': (context) => Settings(
-              color: pink,
-              soundEffects: true,
-            )
+        '/main/': (context) => Main(),
+        '/settings/': (context) => Settings(),
+        '/history/': (context) => History()
       },
     );
   }
 }
 
 class Main extends StatefulWidget {
-  Main({Key? key, required this.color, required this.soundEffects})
-      : super(key: key);
-  Color color;
-  bool soundEffects;
+  Main({Key? key}) : super(key: key);
 
   @override
   State<Main> createState() => _MainState();
 }
 
 class _MainState extends State<Main> {
-  late Calculator c = Calculator(widget.soundEffects);
+  LocalStorage storage = LocalStorage();
+  Color color = pink;
+  late Calculator c = Calculator();
   String displayString = "";
+
+  @override
+  void initState() {
+    super.initState();
+    () async {
+      int i = await storage.getColor();
+      setState(() {
+        color = numbersToColors[i] ?? pink;
+      });
+    }();
+  }
 
   void _update(String val) {
     c.input(val);
@@ -67,20 +73,14 @@ class _MainState extends State<Main> {
         preferredSize: const Size.fromHeight(60),
         child: MainAppbar(
           title: "COWCULATOR",
-          color: widget.color,
+          color: color,
           action: IconButton(
               icon: settings,
-              color: (widget.color == black || widget.color == brown)
-                  ? white
-                  : black,
+              color: (color == black || color == brown) ? white : black,
               onPressed: () {
                 Navigator.pushAndRemoveUntil(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => Settings(
-                              color: widget.color,
-                              soundEffects: widget.soundEffects,
-                            )),
+                    MaterialPageRoute(builder: (context) => Settings()),
                     (route) => false);
               }),
         ),
@@ -116,61 +116,37 @@ class _MainState extends State<Main> {
                 crossAxisCount: 4,
                 children: [
                   // first row
-                  OperatorButton(
-                      text: "CLR", action: _update, color: widget.color),
-                  OperatorButton(
-                      text: "( )", action: _update, color: widget.color),
+                  OperatorButton(text: "CLR", action: _update, color: color),
+                  OperatorButton(text: "( )", action: _update, color: color),
                   OperatorIconButton(
-                      text: "%",
-                      icon: percent,
-                      action: _update,
-                      color: widget.color),
+                      text: "%", icon: percent, action: _update, color: color),
                   OperatorIconButton(
-                      text: "/",
-                      icon: divide,
-                      action: _update,
-                      color: widget.color),
+                      text: "/", icon: divide, action: _update, color: color),
                   // second row
-                  NumButton(text: "7", action: _update, color: widget.color),
-                  NumButton(text: "8", action: _update, color: widget.color),
-                  NumButton(text: "9", action: _update, color: widget.color),
+                  NumButton(text: "7", action: _update, color: color),
+                  NumButton(text: "8", action: _update, color: color),
+                  NumButton(text: "9", action: _update, color: color),
                   OperatorIconButton(
-                      text: "X",
-                      icon: multiply,
-                      action: _update,
-                      color: widget.color),
+                      text: "X", icon: multiply, action: _update, color: color),
                   // third row
-                  NumButton(text: "4", action: _update, color: widget.color),
-                  NumButton(text: "5", action: _update, color: widget.color),
-                  NumButton(text: "6", action: _update, color: widget.color),
+                  NumButton(text: "4", action: _update, color: color),
+                  NumButton(text: "5", action: _update, color: color),
+                  NumButton(text: "6", action: _update, color: color),
                   OperatorIconButton(
-                      text: "-",
-                      icon: minus,
-                      action: _update,
-                      color: widget.color),
+                      text: "-", icon: minus, action: _update, color: color),
                   // fourth row
-                  NumButton(text: "1", action: _update, color: widget.color),
-                  NumButton(text: "2", action: _update, color: widget.color),
-                  NumButton(text: "3", action: _update, color: widget.color),
+                  NumButton(text: "1", action: _update, color: color),
+                  NumButton(text: "2", action: _update, color: color),
+                  NumButton(text: "3", action: _update, color: color),
                   OperatorIconButton(
-                      text: "+",
-                      icon: plus,
-                      action: _update,
-                      color: widget.color),
+                      text: "+", icon: plus, action: _update, color: color),
                   // fifth row
-                  NumButton(text: "0", action: _update, color: widget.color),
-                  OperatorButton(
-                      text: ".", action: _update, color: widget.color),
+                  NumButton(text: "0", action: _update, color: color),
+                  OperatorButton(text: ".", action: _update, color: color),
                   OperatorIconButton(
-                      text: "DEL",
-                      icon: delete,
-                      action: _update,
-                      color: widget.color),
+                      text: "DEL", icon: delete, action: _update, color: color),
                   OperatorIconButton(
-                      text: "=",
-                      icon: equal,
-                      action: _update,
-                      color: widget.color),
+                      text: "=", icon: equal, action: _update, color: color),
                 ],
               ),
             )

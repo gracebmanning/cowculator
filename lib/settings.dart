@@ -3,61 +3,69 @@ import 'package:cowculator/main.dart';
 import 'package:flutter/material.dart';
 import 'components/appbar.dart';
 import 'components/colorbuttons.dart';
+import 'localstorage.dart';
 import 'constants/colors.dart';
 import 'constants/icons.dart';
 
 class Settings extends StatefulWidget {
-  Settings({Key? key, required this.color, required this.soundEffects})
-      : super(key: key);
-  Color color;
-  bool soundEffects;
+  Settings({Key? key}) : super(key: key);
 
   @override
   State<Settings> createState() => _SettingsState();
 }
 
 class _SettingsState extends State<Settings> {
-  late String toggleLabel = widget.soundEffects ? "On" : "Off";
-  late Icon toggleIcon = widget.soundEffects ? toggleRight : toggleLeft;
-  // OFF left, ON right
+  LocalStorage storage = LocalStorage();
+  Color color = pink;
+  bool soundEffects = true;
+  String toggleLabel = "On";
+  Icon toggleIcon = toggleRight;
+
+  @override
+  void initState() {
+    super.initState();
+    () async {
+      int i = await storage.getColor();
+      bool val = await storage.getSoundEffects();
+      setState(() {
+        color = numbersToColors[i] ?? pink;
+        // OFF toggleLeft, ON toggleRight
+        soundEffects = val;
+        toggleLabel = soundEffects ? "On" : "Off";
+        toggleIcon = soundEffects ? toggleRight : toggleLeft;
+      });
+    }();
+  }
 
   _viewMain() {
-    Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(
-            builder: (context) =>
-                Main(color: widget.color, soundEffects: widget.soundEffects)),
-        (route) => false);
+    Navigator.pushAndRemoveUntil(context,
+        MaterialPageRoute(builder: (context) => Main()), (route) => false);
   }
 
   _toggleSound() {
     setState(() {
-      if (widget.soundEffects) {
-        widget.soundEffects = false;
+      if (soundEffects) {
+        soundEffects = false;
         toggleLabel = "Off";
         toggleIcon = toggleLeft;
       } else {
-        widget.soundEffects = true;
+        soundEffects = true;
         toggleLabel = "On";
         toggleIcon = toggleRight;
       }
+      storage.setSoundEffects(soundEffects);
     });
   }
 
   _viewHistory() {
-    Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(
-            builder: (context) => History(
-                  color: widget.color,
-                  soundEffects: widget.soundEffects,
-                )),
-        (route) => false);
+    Navigator.pushAndRemoveUntil(context,
+        MaterialPageRoute(builder: (context) => History()), (route) => false);
   }
 
   _setColor(Color newColor) {
     setState(() {
-      widget.color = newColor;
+      color = newColor;
+      storage.setColor(colorsToNumbers[newColor] ?? 0);
     });
   }
 
@@ -68,7 +76,7 @@ class _SettingsState extends State<Settings> {
         preferredSize: const Size.fromHeight(60),
         child: SettingsAppbar(
           title: "SETTINGS",
-          color: widget.color,
+          color: color,
           leading: IconButton(
               icon: backArrow,
               onPressed: () {
