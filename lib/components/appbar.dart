@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import '../constants/colors.dart';
 
 class MainAppbar extends StatelessWidget {
-  MainAppbar({Key? key, required this.title, required this.color, this.action})
+  MainAppbar(
+      {Key? key,
+      required this.title,
+      required this.color,
+      required this.action})
       : super(key: key);
   String title;
   Color color;
@@ -36,6 +40,32 @@ class SettingsAppbar extends StatelessWidget {
       backgroundColor: color,
       foregroundColor: (color == black || color == brown) ? white : black,
       leading: leading,
+      elevation: 0,
+    );
+  }
+}
+
+class HistoryAppbar extends StatelessWidget {
+  HistoryAppbar(
+      {Key? key,
+      required this.title,
+      required this.color,
+      required this.leading,
+      required this.action})
+      : super(key: key);
+  String title;
+  Color color;
+  dynamic leading;
+  dynamic action;
+
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+      title: Text(title, style: const TextStyle(fontSize: 25)),
+      backgroundColor: color,
+      foregroundColor: (color == black || color == brown) ? white : black,
+      leading: leading,
+      actions: [action],
       elevation: 0,
     );
   }

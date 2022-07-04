@@ -12,7 +12,8 @@ const delete = Icon(CupertinoIcons.delete_left, size: 35);
 const equal = Icon(CupertinoIcons.equal, size: 35);
 
 // SETTINGS PAGE
-const backArrow = Icon(FeatherIcons.arrowLeftCircle);
+const backArrow = Icon(FeatherIcons.arrowLeftCircle, size: 30);
 const toggleRight = Icon(FeatherIcons.toggleRight, size: 30);
 const toggleLeft = Icon(FeatherIcons.toggleLeft, size: 30);
-const file = Icon(FeatherIcons.file, size: 30);
+const file = Icon(FeatherIcons.fileText, size: 30);
+const clearFile = Icon(FeatherIcons.fileMinus, size: 30);

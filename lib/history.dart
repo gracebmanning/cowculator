@@ -30,22 +30,54 @@ class _HistoryState extends State<History> {
     }();
   }
 
+  _viewSettings() {
+    Navigator.pushAndRemoveUntil(context,
+        MaterialPageRoute(builder: (context) => Settings()), (route) => false);
+  }
+
+  _clearHistory() {
+    setState(() {
+      () async {
+        storage.clearHistory();
+        List<String> temp = await storage.getHistoryList();
+        setState(() {
+          history = temp;
+        });
+      }();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
-        child: SettingsAppbar(
+        child: HistoryAppbar(
           title: "HISTORY",
           color: color,
           leading: IconButton(
               icon: backArrow,
               onPressed: () {
-                Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(builder: (context) => Settings()),
-                    (route) => false);
+                _viewSettings();
               }),
+          action: Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 10),
+                child: Column(
+                  children: const [
+                    Text('CLEAR', style: TextStyle(fontSize: 15)),
+                    Text('HISTORY', style: TextStyle(fontSize: 15))
+                  ],
+                ),
+              ),
+              IconButton(
+                  icon: clearFile,
+                  onPressed: () {
+                    _clearHistory();
+                  })
+            ],
+          ),
         ),
       ),
       body: Padding(
