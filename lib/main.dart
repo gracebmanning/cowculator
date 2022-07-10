@@ -1,11 +1,11 @@
 import 'localstorage.dart';
 import 'calculator.dart';
+import 'history.dart';
+import 'settings.dart';
 import 'components/blobbuttons.dart';
 import 'components/appbar.dart';
 import 'constants/colors.dart';
 import 'constants/icons.dart';
-import 'history.dart';
-import 'settings.dart';
 import 'package:flutter/material.dart';
 
 void main() async {

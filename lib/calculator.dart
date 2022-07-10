@@ -13,7 +13,13 @@ class Calculator {
   LocalStorage storage = LocalStorage();
   bool soundEffects = true;
 
-  Calculator();
+  // initialize calculator with soundEffects value.
+  Calculator() {
+    () async {
+      bool val = await storage.getSoundEffects();
+      soundEffects = val;
+    }();
+  }
 
   String getResult() {
     return result;
@@ -81,14 +87,15 @@ class Calculator {
 
   void clear() {
     result = "";
-    startNewExp = false;
+    startNewExp = true;
     openParen = false;
   }
 
   void parentheses() {
-    if (result.isEmpty) {
+    if (startNewExp) {
       // start new expression
-      result += '(';
+      result = '(';
+      startNewExp = false;
       openParen = true;
     } else {
       // add to current expression
@@ -156,11 +163,6 @@ class Calculator {
   }
 
   void evaluate() {
-    //getSoundEffects(); // update sound effects value
-    Future.delayed(Duration.zero, () async {
-      soundEffects = await storage.getSoundEffects();
-    });
-
     if (soundEffects) {
       playSound();
     }
@@ -186,13 +188,6 @@ class Calculator {
     }
     startNewExp = true;
     openParen = false;
-  }
-
-  void getSoundEffects() {
-    () async {
-      bool val = await storage.getSoundEffects();
-      soundEffects = val;
-    }();
   }
 
   void playSound() async {
@@ -227,8 +222,30 @@ class Calculator {
     return str;
   }
 
-  // TODO: IMPLEMENT
   String formatParentheses(String str) {
+    print(str);
+    int i = 0;
+    while (i < str.length) {
+      if (str[i] == '(') {
+        if (i - 1 >= 0 &&
+            // check if number or ) comes directly before it
+            (double.tryParse(str[i - 1]) != null || str[i - 1] == ')')) {
+          // add * before parentheses
+          str = str.substring(0, i) + "*" + str.substring(i);
+        }
+      }
+      if (str[i] == ')') {
+        if (i + 1 < str.length &&
+            // check if number or ( comes directly after it
+            (double.tryParse(str[i + 1]) != null || str[i + 1] == '(')) {
+          // add * after parentheses
+          str = str.substring(0, i + 1) + "*" + str.substring(i + 1);
+        }
+      }
+
+      i++;
+    }
+    print(str);
     return str;
   }
 
@@ -247,7 +264,6 @@ class Calculator {
     DateTime now = DateTime.now().toLocal();
     String formattedDate = DateFormat('yyyy-MM-dd kk:mm').format(now);
     String item = formattedDate + ' ' + expression + '=' + result;
-    print(item);
     storage.addHistoryItem(item);
   }
 } // end of Calculator class

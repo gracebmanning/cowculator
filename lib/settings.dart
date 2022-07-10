@@ -37,11 +37,6 @@ class _SettingsState extends State<Settings> {
     }();
   }
 
-  _viewMain() {
-    Navigator.pushAndRemoveUntil(context,
-        MaterialPageRoute(builder: (context) => Main()), (route) => false);
-  }
-
   _toggleSound() {
     setState(() {
       if (soundEffects) {
@@ -57,16 +52,21 @@ class _SettingsState extends State<Settings> {
     });
   }
 
-  _viewHistory() {
-    Navigator.pushAndRemoveUntil(context,
-        MaterialPageRoute(builder: (context) => History()), (route) => false);
-  }
-
   _setColor(Color newColor) {
     setState(() {
       color = newColor;
       storage.setColor(colorsToNumbers[newColor] ?? 0);
     });
+  }
+
+  _viewHistory() {
+    Navigator.pushAndRemoveUntil(context,
+        MaterialPageRoute(builder: (context) => History()), (route) => false);
+  }
+
+  _viewMain() {
+    Navigator.pushAndRemoveUntil(context,
+        MaterialPageRoute(builder: (context) => Main()), (route) => false);
   }
 
   @override
@@ -130,6 +130,10 @@ class _SettingsState extends State<Settings> {
                 ],
               ),
             ),
+            const Padding(
+                padding: EdgeInsets.only(top: 200, right: 30),
+                child: Text("2022 \u00a9 GBM Studio.",
+                    style: TextStyle(fontSize: 17))),
           ],
         ),
       ),
