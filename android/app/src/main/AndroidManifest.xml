@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.gracemanning.cowculator">
+    package="com.grace-manning.cowculator">
    <application
         android:label="cowculator"
         android:name="${applicationName}"
