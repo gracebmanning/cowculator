@@ -14,4 +14,4 @@ The Cowculator utilizes the following dependencies, among others:
 * audioplayers
 
 ## Credits
-Created by [Grace Manning](https://www.grace-manning.com), 2022.
+Created by [Grace Manning](https://www.grace-manning.com), 2022 for GBM Studio.
