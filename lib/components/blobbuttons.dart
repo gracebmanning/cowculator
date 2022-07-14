@@ -1,5 +1,6 @@
 import 'package:cowculator/constants/blobs.dart';
 import 'package:cowculator/constants/colors.dart';
+import 'package:cowculator/constants/platformconstants.dart';
 import 'package:blobs/blobs.dart';
 import 'package:flutter/material.dart';
 
@@ -17,14 +18,14 @@ class OperatorButton extends StatelessWidget {
 
     return Blob.fromID(
       id: const ['15-9-890934'],
-      size: 80,
+      size: getOperatorButtonSize(),
       styles: BlobStyles(color: color, fillType: BlobFillType.stroke),
       controller: blobCtrl,
       child: TextButton(
         child: Text(
           text,
           style:
-              TextStyle(fontSize: 25, color: (color == brown) ? brown : black),
+              TextStyle(fontSize: 27, color: (color == brown) ? brown : black),
         ),
         onPressed: () {
           action(text);
@@ -53,7 +54,7 @@ class OperatorIconButton extends StatelessWidget {
 
     return Blob.fromID(
       id: const ['15-9-890934'],
-      size: 80,
+      size: getOperatorButtonSize(),
       styles: BlobStyles(color: color, fillType: BlobFillType.stroke),
       controller: blobCtrl,
       child: TextButton(
@@ -81,13 +82,13 @@ class NumButton extends StatelessWidget {
 
     return Blob.fromID(
       id: blobs[int.parse(text)],
-      size: 85,
+      size: getNumButtonSize(),
       styles: BlobStyles(color: color),
       controller: blobCtrl,
       child: TextButton(
         child: Text(
           text,
-          style: const TextStyle(fontSize: 30, color: white),
+          style: const TextStyle(fontSize: 35, color: white),
         ),
         onPressed: () {
           action(text);

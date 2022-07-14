@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 
 // MAIN PAGE
-const settings = Icon(FeatherIcons.settings);
+const settings = Icon(FeatherIcons.settings, size: 25);
 const percent = Icon(FeatherIcons.percent, size: 30);
 const divide = Icon(CupertinoIcons.divide, size: 35);
 const multiply = Icon(CupertinoIcons.multiply, size: 35);

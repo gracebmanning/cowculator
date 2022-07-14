@@ -223,7 +223,6 @@ class Calculator {
   }
 
   String formatParentheses(String str) {
-    print(str);
     int i = 0;
     while (i < str.length) {
       if (str[i] == '(') {
@@ -245,7 +244,6 @@ class Calculator {
 
       i++;
     }
-    print(str);
     return str;
   }
 

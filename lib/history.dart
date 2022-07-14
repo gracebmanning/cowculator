@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'components/appbar.dart';
 import 'constants/colors.dart';
 import 'constants/icons.dart';
+import 'custompagebuilder.dart';
 import 'localstorage.dart';
 
 class History extends StatefulWidget {
@@ -31,8 +32,9 @@ class _HistoryState extends State<History> {
   }
 
   _viewSettings() {
-    Navigator.pushAndRemoveUntil(context,
-        MaterialPageRoute(builder: (context) => Settings()), (route) => false);
+    Navigator.of(context).push(CustomPageRoute(child: Settings()));
+    //Navigator.push(
+        //context, MaterialPageRoute(builder: (context) => Settings()));
   }
 
   _clearHistory() {

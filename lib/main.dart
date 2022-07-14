@@ -1,3 +1,4 @@
+import 'package:cowculator/constants/platformconstants.dart';
 import 'localstorage.dart';
 import 'calculator.dart';
 import 'history.dart';
@@ -6,6 +7,7 @@ import 'components/blobbuttons.dart';
 import 'components/appbar.dart';
 import 'constants/colors.dart';
 import 'constants/icons.dart';
+import 'constants/platformconstants.dart';
 import 'package:flutter/material.dart';
 
 void main() async {
@@ -63,6 +65,11 @@ class _MainState extends State<Main> {
     });
   }
 
+  void _viewSettings() {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => Settings()));
+  }
+
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -70,7 +77,7 @@ class _MainState extends State<Main> {
     return Scaffold(
       backgroundColor: white,
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(60),
+        preferredSize: Size.fromHeight(getAppbarHeight()),
         child: MainAppbar(
           title: "COWCULATOR",
           color: color,
@@ -78,10 +85,7 @@ class _MainState extends State<Main> {
               icon: settings,
               color: (color == black || color == brown) ? white : black,
               onPressed: () {
-                Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(builder: (context) => Settings()),
-                    (route) => false);
+                _viewSettings();
               }),
         ),
       ),
@@ -91,7 +95,7 @@ class _MainState extends State<Main> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             SizedBox(
-              height: 150,
+              height: getResultHeight(),
               child: Padding(
                 padding: const EdgeInsets.only(left: 20, right: 20),
                 child: Align(
@@ -101,7 +105,7 @@ class _MainState extends State<Main> {
                     reverse: true,
                     child: Text(
                       displayString,
-                      style: const TextStyle(fontSize: 40),
+                      style: TextStyle(fontSize: getResultFontSize()),
                     ),
                   ),
                 ),
@@ -111,8 +115,8 @@ class _MainState extends State<Main> {
               child: GridView.count(
                 primary: false,
                 padding: const EdgeInsets.all(20),
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 10,
+                crossAxisSpacing: 12,
+                mainAxisSpacing: 20,
                 crossAxisCount: 4,
                 children: [
                   // first row

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 const pink = Color.fromARGB(255, 251, 174, 208); // 0
 const blue = Color.fromARGB(255, 184, 229, 255); // 1
-const green = Color.fromARGB(255, 155, 236, 197); // 2
+const green = Color.fromARGB(255, 115, 202, 143); // 2
 const yellow = Color.fromARGB(255, 255, 233, 120); // 3
 const brown = Color.fromARGB(200, 138, 79, 25); // 4
 const black = Color.fromARGB(210, 0, 0, 0); // 5

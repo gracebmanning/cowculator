@@ -1,3 +1,4 @@
+import 'package:cowculator/constants/platformconstants.dart';
 import 'package:flutter/material.dart';
 import '../constants/colors.dart';
 
@@ -16,11 +17,12 @@ class MainAppbar extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppBar(
       title: Text(title,
-          style: const TextStyle(fontSize: 25, fontFamily: 'Inconsolata')),
+          style: const TextStyle(fontSize: 27, fontFamily: 'Inconsolata')),
       backgroundColor: color,
       foregroundColor: (color == black || color == brown) ? white : black,
       actions: [action],
       elevation: 0,
+      automaticallyImplyLeading: false,
     );
   }
 }

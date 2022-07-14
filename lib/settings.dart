@@ -3,6 +3,7 @@ import 'package:cowculator/main.dart';
 import 'package:flutter/material.dart';
 import 'components/appbar.dart';
 import 'components/colorbuttons.dart';
+import 'custompagebuilder.dart';
 import 'localstorage.dart';
 import 'constants/colors.dart';
 import 'constants/icons.dart';
@@ -65,8 +66,9 @@ class _SettingsState extends State<Settings> {
   }
 
   _viewMain() {
-    Navigator.pushAndRemoveUntil(context,
-        MaterialPageRoute(builder: (context) => Main()), (route) => false);
+    Navigator.of(context).push(CustomPageRoute(child: Main()));
+    //Navigator.pushAndRemoveUntil(context,
+        //MaterialPageRoute(builder: (context) => Main()), (route) => false);
   }
 
   @override
