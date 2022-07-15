@@ -1,34 +1,36 @@
 import 'dart:io' show Platform;
 
+// android = false means the platform is most likely iOS
 bool android = false;
-bool ios = false;
 
-void getPlatform(){
-  if(Platform.isAndroid){
+void getPlatform() {
+  if (Platform.isAndroid) {
     android = true;
-  }
-  else if(Platform.isIOS){
-    ios = true;
   }
 }
 
-double getAppbarHeight(){
+double getAppbarHeight() {
+  getPlatform();
   return android ? 60 : 65;
 }
 
-double getResultHeight(){
-  return android ? 150 : 205;
+double getResultHeight() {
+  getPlatform();
+  return android ? 135 : 205;
 }
 
-double getResultFontSize(){
+double getResultFontSize() {
+  getPlatform();
   return android ? 40 : 45;
 }
 
-double getOperatorButtonSize(){
+double getOperatorButtonSize() {
+  getPlatform();
   return android ? 80 : 85;
 }
 
-double getNumButtonSize(){
+double getNumButtonSize() {
+  getPlatform();
   return android ? 85 : 90;
 }
 

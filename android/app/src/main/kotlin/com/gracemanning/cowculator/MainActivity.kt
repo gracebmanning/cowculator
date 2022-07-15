@@ -1,4 +1,4 @@
-package com.grace-manning.cowculator
+package com.gracemanning.cowculator
 
 import io.flutter.embedding.android.FlutterActivity
 
