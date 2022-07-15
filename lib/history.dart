@@ -7,7 +7,7 @@ import 'custompagebuilder.dart';
 import 'localstorage.dart';
 
 class History extends StatefulWidget {
-  History({Key? key}) : super(key: key);
+  const History({Key? key}) : super(key: key);
 
   @override
   State<History> createState() => _HistoryState();
@@ -32,9 +32,7 @@ class _HistoryState extends State<History> {
   }
 
   _viewSettings() {
-    Navigator.of(context).push(CustomPageRoute(child: Settings()));
-    //Navigator.push(
-        //context, MaterialPageRoute(builder: (context) => Settings()));
+    Navigator.of(context).push(PageFromLeft(child: const Settings()));
   }
 
   _clearHistory() {
@@ -86,24 +84,29 @@ class _HistoryState extends State<History> {
         padding: const EdgeInsets.all(20),
         // if history is empty, build list. else, display "Nothing to see here!".
         child: history.isNotEmpty
-            ? ListView.builder(
-                itemCount: history.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return Container(
-                    padding: const EdgeInsets.all(10),
-                    margin: const EdgeInsets.only(top: 10, bottom: 10),
-                    constraints: const BoxConstraints(minHeight: 40),
-                    decoration: BoxDecoration(
-                        border: Border.all(color: color, width: 1.5),
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(20))),
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(history[index],
-                          style: const TextStyle(fontSize: 22)),
-                    ),
-                  );
-                })
+            ? Container(
+                alignment: Alignment.topCenter,
+                height: 90 * history.length.toDouble(),
+                child: ListView.builder(
+                    reverse: true,
+                    itemCount: history.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Container(
+                        padding: const EdgeInsets.all(10),
+                        margin: const EdgeInsets.only(top: 10, bottom: 10),
+                        constraints: const BoxConstraints(minHeight: 40),
+                        decoration: BoxDecoration(
+                            border: Border.all(color: color, width: 1.5),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(20))),
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(history[index],
+                              style: const TextStyle(fontSize: 22)),
+                        ),
+                      );
+                    }),
+              )
             : const Text('Nothing to see here!',
                 style: TextStyle(fontSize: 22)),
       ),

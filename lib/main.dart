@@ -1,4 +1,5 @@
-import 'package:cowculator/constants/platformconstants.dart';
+import 'package:flutter/services.dart';
+import 'custompagebuilder.dart';
 import 'localstorage.dart';
 import 'calculator.dart';
 import 'history.dart';
@@ -12,11 +13,13 @@ import 'package:flutter/material.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(App());
+  SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+  runApp(const App());
 }
 
 class App extends StatelessWidget {
-  App({Key? key}) : super(key: key);
+  const App({Key? key}) : super(key: key);
 
   // This widget is the root of your application.
   @override
@@ -24,18 +27,18 @@ class App extends StatelessWidget {
     return MaterialApp(
       title: 'Cowculator',
       theme: ThemeData(primaryColor: Colors.black, fontFamily: 'Inconsolata'),
-      home: Main(),
+      home: const Main(),
       routes: {
-        '/main/': (context) => Main(),
-        '/settings/': (context) => Settings(),
-        '/history/': (context) => History()
+        '/main/': (context) => const Main(),
+        '/settings/': (context) => const Settings(),
+        '/history/': (context) => const History()
       },
     );
   }
 }
 
 class Main extends StatefulWidget {
-  Main({Key? key}) : super(key: key);
+  const Main({Key? key}) : super(key: key);
 
   @override
   State<Main> createState() => _MainState();
@@ -58,16 +61,15 @@ class _MainState extends State<Main> {
     }();
   }
 
-  void _update(String val) {
+  _update(String val) {
     c.input(val);
     setState(() {
       displayString = c.getResult();
     });
   }
 
-  void _viewSettings() {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => Settings()));
+  _viewSettings() {
+    Navigator.of(context).push(PageFromRight(child: const Settings()));
   }
 
   @override
@@ -95,7 +97,8 @@ class _MainState extends State<Main> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             SizedBox(
-              height: getResultHeight(),
+              height: MediaQuery.of(context).size.height *
+                  0.23, // TODO: replace 0.23 with a function for different iOS value?
               child: Padding(
                 padding: const EdgeInsets.only(left: 20, right: 20),
                 child: Align(
@@ -105,7 +108,7 @@ class _MainState extends State<Main> {
                     reverse: true,
                     child: Text(
                       displayString,
-                      style: TextStyle(fontSize: getResultFontSize()),
+                      style: const TextStyle(fontSize: 45),
                     ),
                   ),
                 ),

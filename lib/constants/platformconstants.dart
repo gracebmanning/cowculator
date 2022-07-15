@@ -19,11 +19,6 @@ double getResultHeight() {
   return android ? 135 : 205;
 }
 
-double getResultFontSize() {
-  getPlatform();
-  return android ? 40 : 45;
-}
-
 double getOperatorButtonSize() {
   getPlatform();
   return android ? 80 : 85;

@@ -1,7 +1,6 @@
 import 'package:intl/intl.dart';
 import 'package:math_expressions/math_expressions.dart';
 import 'package:audioplayers/audioplayers.dart';
-
 import 'localstorage.dart';
 
 class Calculator {
@@ -191,7 +190,7 @@ class Calculator {
   }
 
   void playSound() async {
-    await player.play(AssetSource('CowMoo2.mp3'));
+    await player.play(AssetSource('CowMoo.mp3'));
   }
 
   String formatPercents(String str) {
@@ -210,12 +209,15 @@ class Calculator {
       // divide number by 100
       num = num / 100;
 
-      // replace number+parentheses with decimal value
-      // if more numbers come after % sign, add multiplication sign
       if (index == str.length - 1) {
+        // replace number+percent with decimal value
         str = str.replaceFirst(strNum + '%', num.toString());
       } else {
-        str = str.replaceFirst(strNum + '%', num.toString() + '*');
+        // if a number comes after % sign, add multiplication sign
+        if (double.tryParse(str[index + 1]) != null) {
+          str = str.substring(0, index + 1) + "*" + str.substring(index + 1);
+        }
+        str = str.replaceFirst(strNum + '%', num.toString());
       }
     }
 
@@ -253,8 +255,12 @@ class Calculator {
     if (input.isInfinite) {
       str = input.toStringAsFixed(input.truncateToDouble() == input ? 0 : 6);
     } else {
-      str = input.toStringAsFixed(input.truncateToDouble() == input ? 0 : 2);
+      str = input.toStringAsFixed(input.truncateToDouble() == input ? 0 : 4);
     }
+
+    RegExp regex = RegExp(r'([.]*0+)(?!.*\d)');
+    str = str.replaceAll(regex, '');
+
     return str;
   }
 

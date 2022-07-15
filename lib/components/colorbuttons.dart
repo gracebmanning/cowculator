@@ -4,7 +4,7 @@ class ColorButton extends StatelessWidget {
   ColorButton({Key? key, required this.color, required this.action})
       : super(key: key);
   Color color;
-  final action;
+  dynamic action;
 
   @override
   Widget build(BuildContext context) {

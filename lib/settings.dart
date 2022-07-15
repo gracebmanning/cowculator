@@ -9,7 +9,7 @@ import 'constants/colors.dart';
 import 'constants/icons.dart';
 
 class Settings extends StatefulWidget {
-  Settings({Key? key}) : super(key: key);
+  const Settings({Key? key}) : super(key: key);
 
   @override
   State<Settings> createState() => _SettingsState();
@@ -61,14 +61,11 @@ class _SettingsState extends State<Settings> {
   }
 
   _viewHistory() {
-    Navigator.pushAndRemoveUntil(context,
-        MaterialPageRoute(builder: (context) => History()), (route) => false);
+    Navigator.of(context).push(PageFromRight(child: const History()));
   }
 
   _viewMain() {
-    Navigator.of(context).push(CustomPageRoute(child: Main()));
-    //Navigator.pushAndRemoveUntil(context,
-        //MaterialPageRoute(builder: (context) => Main()), (route) => false);
+    Navigator.of(context).push(PageFromLeft(child: const Main()));
   }
 
   @override
@@ -132,9 +129,10 @@ class _SettingsState extends State<Settings> {
                 ],
               ),
             ),
-            const Padding(
-                padding: EdgeInsets.only(top: 200, right: 30),
-                child: Text("2022 \u00a9 GBM Studio.",
+            Padding(
+                padding: EdgeInsets.only(
+                    top: MediaQuery.of(context).size.height * 0.3, right: 30),
+                child: const Text("2022 \u00a9 GBM Studio.",
                     style: TextStyle(fontSize: 17))),
           ],
         ),

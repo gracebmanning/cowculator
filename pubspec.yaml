@@ -65,7 +65,7 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/CowMoo2.mp3
+    - assets/CowMoo.mp3
 
   fonts:
     - family: Inconsolata
