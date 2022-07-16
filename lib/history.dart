@@ -81,12 +81,12 @@ class _HistoryState extends State<History> {
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.only(left: 20, right: 20),
         // if history is empty, build list. else, display "Nothing to see here!".
         child: history.isNotEmpty
             ? Container(
                 alignment: Alignment.topCenter,
-                height: 90 * history.length.toDouble(),
+                height: 85 * history.length.toDouble(),
                 child: ListView.builder(
                     reverse: true,
                     itemCount: history.length,
@@ -107,8 +107,11 @@ class _HistoryState extends State<History> {
                       );
                     }),
               )
-            : const Text('Nothing to see here!',
-                style: TextStyle(fontSize: 22)),
+            : const Padding(
+              padding: EdgeInsets.only(top: 20),
+              child: Text('Nothing to see here!',
+                  style: TextStyle(fontSize: 22)),
+            ),
       ),
     );
   }

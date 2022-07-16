@@ -84,7 +84,7 @@ class _SettingsState extends State<Settings> {
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.only(top: 130, left: 20),
+        padding: const EdgeInsets.only(top: 100, left: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -131,7 +131,7 @@ class _SettingsState extends State<Settings> {
             ),
             Padding(
                 padding: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.3, right: 30),
+                    top: MediaQuery.of(context).size.height * 0.33, right: 30),
                 child: const Text("2022 \u00a9 GBM Studio.",
                     style: TextStyle(fontSize: 17))),
           ],
