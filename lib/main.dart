@@ -113,11 +113,8 @@ class _MainState extends State<Main> {
                 ),
               ),
             ),
-            ConstrainedBox(
-              constraints: BoxConstraints(
-                maxHeight: MediaQuery.of(context).size.height * 0.67,
-                minHeight: MediaQuery.of(context).size.height * 0.5
-              ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.67,
               child: GridView.count(
                 primary: false,
                 padding: const EdgeInsets.all(20),
