@@ -1,5 +1,6 @@
 import 'package:cowculator/history.dart';
 import 'package:cowculator/main.dart';
+import 'package:url_launcher/link.dart';
 import 'package:flutter/material.dart';
 import 'components/appbar.dart';
 import 'components/colorbuttons.dart';
@@ -132,8 +133,26 @@ class _SettingsState extends State<Settings> {
             Padding(
                 padding: EdgeInsets.only(
                     top: MediaQuery.of(context).size.height * 0.33, right: 30),
-                child: const Text("2022 \u00a9 GBM Studio.",
-                    style: TextStyle(fontSize: 17))),
+                child: Row(
+                  children: [
+                    const Text("2022 \u00a9 GBM Studio.",
+                        style: TextStyle(fontSize: 17)),
+                    Link(
+                      target: LinkTarget.blank,
+                      uri: Uri.parse('https://gbm-studio.com/contact'),
+                      builder: (context, followLink) => GestureDetector(
+                          onTap: followLink,
+                          child: const Padding(
+                              padding: EdgeInsets.only(left: 5),
+                              child: Text(
+                                'Feedback',
+                                style: TextStyle(
+                                    fontSize: 17,
+                                    decoration: TextDecoration.underline),
+                              ))),
+                    )
+                  ],
+                )),
           ],
         ),
       ),
