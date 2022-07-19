@@ -58,7 +58,7 @@ double getMainAxisSpacing(double screenHeight) {
   if (900 < screenHeight && screenHeight < 1000) {
     return screenHeight * 0.03;
   } else if (800 < screenHeight && screenHeight <= 900) {
-    return screenHeight * 0.025;
+    return screenHeight * 0.023;
   } else {
     return screenHeight * 0.01;
   }
