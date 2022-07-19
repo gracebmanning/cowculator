@@ -132,7 +132,7 @@ class _SettingsState extends State<Settings> {
             ),
             Padding(
                 padding: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.33, right: 30),
+                    top: MediaQuery.of(context).size.height * 0.32, right: 30),
                 child: Row(
                   children: [
                     const Text("2022 \u00a9 GBM Studio.",

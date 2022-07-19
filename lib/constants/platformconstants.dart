@@ -43,21 +43,23 @@ double getCalculatorHeight(double screenHeight) {
 }
 
 double getCalculatorPadding(double screenHeight) {
-  return screenHeight * 0.1;
-  /*
   // Pixel 6 & iPhone 12 screen height: ~ 898
-  if (800 < screenHeight && screenHeight < 1000) {
+  if (900 < screenHeight && screenHeight < 1000) {
     return screenHeight * 0.12;
-  }
-  // iPhone 8 height: 736
-  else if (700 < screenHeight && screenHeight <= 800) {
-    return screenHeight * 0.09;
+  } else if (800 < screenHeight && screenHeight <= 900) {
+    return screenHeight * 0.07;
   } else {
-    return screenHeight * 0.05;
-  } */
+    return screenHeight * 0.04;
+  }
 }
 
 double getMainAxisSpacing(double screenHeight) {
-  return screenHeight * 0.02;
-  // iphone 8: 0.015
+  // Pixel 6 & iPhone 12 screen height: ~ 898
+  if (900 < screenHeight && screenHeight < 1000) {
+    return screenHeight * 0.03;
+  } else if (800 < screenHeight && screenHeight <= 900) {
+    return screenHeight * 0.025;
+  } else {
+    return screenHeight * 0.01;
+  }
 }
