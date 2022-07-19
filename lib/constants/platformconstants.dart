@@ -30,8 +30,7 @@ double getNumButtonSize() {
 }
 
 double getCalculatorHeight(double screenHeight) {
-  print(screenHeight);
-  // Pixel screen height: 898
+  // Pixel 6 screen height: 898
   if (800 < screenHeight && screenHeight < 1000) {
     return screenHeight * 0.58;
   }
@@ -43,8 +42,22 @@ double getCalculatorHeight(double screenHeight) {
   }
 }
 
+double getCalculatorPadding(double screenHeight) {
+  return screenHeight * 0.1;
+  /*
+  // Pixel 6 & iPhone 12 screen height: ~ 898
+  if (800 < screenHeight && screenHeight < 1000) {
+    return screenHeight * 0.12;
+  }
+  // iPhone 8 height: 736
+  else if (700 < screenHeight && screenHeight <= 800) {
+    return screenHeight * 0.09;
+  } else {
+    return screenHeight * 0.05;
+  } */
+}
 
-
-// either return different builds of the pages or set variables to specific values
-// ex: change padding values, change heights of boxes, etc.
-// set numbers to be more relative rather than hard-coded
+double getMainAxisSpacing(double screenHeight) {
+  return screenHeight * 0.02;
+  // iphone 8: 0.015
+}

@@ -99,7 +99,7 @@ class _MainState extends State<Main> {
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.15,
               child: Padding(
-                padding: const EdgeInsets.only(left: 20, right: 20),
+                padding: const EdgeInsets.only(left: 20, right: 20, top: 60),
                 child: Align(
                   alignment: Alignment.centerRight,
                   child: SingleChildScrollView(
@@ -107,21 +107,25 @@ class _MainState extends State<Main> {
                     reverse: true,
                     child: Text(
                       displayString,
-                      style: const TextStyle(fontSize: 45),
+                      style: const TextStyle(fontSize: 50),
                     ),
                   ),
                 ),
               ),
             ),
-            SizedBox(
-              height: getCalculatorHeight(MediaQuery.of(context).size.height),
-              child: Align(
-                alignment: Alignment.bottomCenter,
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.only(
+                  // calculator padding is dependent on screen height
+                  top: getCalculatorPadding(MediaQuery.of(context).size.height),
+                ),
                 child: GridView.count(
                   primary: false,
                   padding: const EdgeInsets.all(20),
                   crossAxisSpacing: 12,
-                  mainAxisSpacing: MediaQuery.of(context).size.height * 0.015,
+                  mainAxisSpacing:
+                      // main axis spacing is dependent on screen height
+                      getMainAxisSpacing(MediaQuery.of(context).size.height),
                   crossAxisCount: 4,
                   children: [
                     // first row
