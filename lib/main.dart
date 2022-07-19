@@ -98,7 +98,7 @@ class _MainState extends State<Main> {
           children: <Widget>[
             SizedBox(
               height: MediaQuery.of(context).size.height *
-                  0.23, // TODO: replace 0.23 with a function for different iOS value?
+                  0.2, // TODO: replace 0.23 with a function for different iOS value?
               child: Padding(
                 padding: const EdgeInsets.only(left: 20, right: 20),
                 child: Align(
@@ -119,7 +119,8 @@ class _MainState extends State<Main> {
                 primary: false,
                 padding: const EdgeInsets.all(20),
                 crossAxisSpacing: 12,
-                mainAxisSpacing: 20,
+                mainAxisSpacing: MediaQuery.of(context).size.height *
+                  0.012,
                 crossAxisCount: 4,
                 children: [
                   // first row
