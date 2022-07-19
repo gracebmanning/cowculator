@@ -30,7 +30,7 @@ class LocalStorage {
   addHistoryItem(String item) async {
     prefs = await SharedPreferences.getInstance();
     List<String> history = prefs.getStringList('history') ?? emptyList;
-    history.add(item);
+    history.insert(0, item);
     prefs.setStringList('history', history);
   }
 

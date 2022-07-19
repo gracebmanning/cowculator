@@ -147,6 +147,7 @@ class Calculator {
     } else {
       // add to current expression
       result += '.';
+      startNewExp = false;
     }
   }
 

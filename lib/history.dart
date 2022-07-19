@@ -81,37 +81,29 @@ class _HistoryState extends State<History> {
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.only(left: 20, right: 20),
+        padding: const EdgeInsets.all(20),
         // if history is empty, build list. else, display "Nothing to see here!".
         child: history.isNotEmpty
-            ? Container(
-                alignment: Alignment.topCenter,
-                height: 85 * history.length.toDouble(),
-                child: ListView.builder(
-                    reverse: true,
-                    itemCount: history.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Container(
-                        padding: const EdgeInsets.all(10),
-                        margin: const EdgeInsets.only(top: 10, bottom: 10),
-                        constraints: const BoxConstraints(minHeight: 40),
-                        decoration: BoxDecoration(
-                            border: Border.all(color: color, width: 1.5),
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(20))),
-                        child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(history[index],
-                              style: const TextStyle(fontSize: 22)),
-                        ),
-                      );
-                    }),
-              )
-            : const Padding(
-              padding: EdgeInsets.only(top: 20),
-              child: Text('Nothing to see here!',
-                  style: TextStyle(fontSize: 22)),
-            ),
+            ? ListView.builder(
+                itemCount: history.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return Container(
+                    padding: const EdgeInsets.all(10),
+                    margin: const EdgeInsets.only(top: 10, bottom: 10),
+                    constraints: const BoxConstraints(minHeight: 40),
+                    decoration: BoxDecoration(
+                        border: Border.all(color: color, width: 1.5),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(20))),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(history[index],
+                          style: const TextStyle(fontSize: 22)),
+                    ),
+                  );
+                })
+            : const Text('Nothing to see here!',
+                style: TextStyle(fontSize: 22)),
       ),
     );
   }
