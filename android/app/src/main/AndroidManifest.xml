@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.gbmstudio.cowculator">
+    package="com.gracemanning.cowculator">
     <queries>
         <!-- If your app opens https URLs -->
         <intent>
