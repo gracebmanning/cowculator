@@ -97,7 +97,7 @@ class _MainState extends State<Main> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.2,
+              height: MediaQuery.of(context).size.height * 0.15,
               child: Padding(
                 padding: const EdgeInsets.only(left: 20, right: 20),
                 child: Align(
@@ -113,8 +113,11 @@ class _MainState extends State<Main> {
                 ),
               ),
             ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.6,
+            ConstrainedBox(
+              constraints: BoxConstraints(
+                maxHeight: MediaQuery.of(context).size.height * 0.67,
+                minHeight: MediaQuery.of(context).size.height * 0.5
+              ),
               child: GridView.count(
                 primary: false,
                 padding: const EdgeInsets.all(20),
