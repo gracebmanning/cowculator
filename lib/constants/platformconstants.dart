@@ -29,6 +29,17 @@ double getNumButtonSize() {
   return android ? 85 : 90;
 }
 
+double getCalculatorHeight(double screenHeight) {
+  print(screenHeight);
+  // Pixel screen height: 898
+  if (800 < screenHeight && screenHeight < 1000) {
+    return screenHeight * 0.55;
+  } else if (700 < screenHeight && screenHeight <= 800) {
+    return screenHeight * 0.65;
+  } else {
+    return screenHeight * 0.67;
+  }
+}
 
 
 
