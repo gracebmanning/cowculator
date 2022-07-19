@@ -34,10 +34,12 @@ double getCalculatorHeight(double screenHeight) {
   // Pixel screen height: 898
   if (800 < screenHeight && screenHeight < 1000) {
     return screenHeight * 0.55;
-  } else if (700 < screenHeight && screenHeight <= 800) {
-    return screenHeight * 0.65;
-  } else {
+  }
+  // iPhone 8 height: 736
+  else if (700 < screenHeight && screenHeight <= 800) {
     return screenHeight * 0.67;
+  } else {
+    return screenHeight * 0.7;
   }
 }
 
