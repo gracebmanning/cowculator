@@ -25,6 +25,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Cowculator',
       theme: ThemeData(primaryColor: Colors.black, fontFamily: 'Inconsolata'),
       home: const Main(),
