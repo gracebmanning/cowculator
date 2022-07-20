@@ -45,7 +45,7 @@ double getCalculatorHeight(double screenHeight) {
 double getCalculatorPadding(double screenHeight) {
   // Pixel 6 & iPhone 12 screen height: ~ 898
   if (900 < screenHeight && screenHeight < 1000) {
-    return screenHeight * 0.12;
+    return screenHeight * 0.09;
   } else if (800 < screenHeight && screenHeight <= 900) {
     return screenHeight * 0.07;
   } else {
@@ -56,7 +56,7 @@ double getCalculatorPadding(double screenHeight) {
 double getMainAxisSpacing(double screenHeight) {
   // Pixel 6 & iPhone 12 screen height: ~ 898
   if (900 < screenHeight && screenHeight < 1000) {
-    return screenHeight * 0.03;
+    return screenHeight * 0.025;
   } else if (800 < screenHeight && screenHeight <= 900) {
     return screenHeight * 0.023;
   } else {
