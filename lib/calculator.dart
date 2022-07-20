@@ -256,12 +256,10 @@ class Calculator {
     if (input.isInfinite) {
       str = input.toStringAsFixed(input.truncateToDouble() == input ? 0 : 6);
     } else {
-      str = input.toStringAsFixed(input.truncateToDouble() == input ? 0 : 4);
+      str = input.toStringAsFixed(input.truncateToDouble() == input ? 0 : 2);
     }
-
-    RegExp regex = RegExp(r'([.]*0+)(?!.*\d)');
+    RegExp regex = RegExp(r'/\.0+$/');
     str = str.replaceAll(regex, '');
-
     return str;
   }
 
