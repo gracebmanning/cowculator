@@ -99,31 +99,74 @@ class _MainState extends State<Main> {
           children: <Widget>[
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.15,
-              child: Padding(
-                padding: const EdgeInsets.only(left: 20, right: 20, top: 60),
-                child: Align(
-                  alignment: Alignment.centerRight,
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    reverse: true,
-                    child: Text(
-                      displayString,
-                      style: const TextStyle(fontSize: 50),
+              width: MediaQuery.of(context).size.width,
+              child: Container(
+                margin: const EdgeInsets.all(10),
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                      color: transparents[color],
+                      borderRadius:
+                          const BorderRadius.all(Radius.circular(15.0))),
+                  child: Align(
+                    alignment: Alignment.centerRight,
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      reverse: true,
+                      child: Padding(
+                        padding: const EdgeInsets.all(20),
+                        child: Text(
+                          displayString,
+                          style: TextStyle(
+                              fontSize:
+                                  MediaQuery.of(context).size.width * 0.1),
+                        ),
+                      ),
                     ),
                   ),
                 ),
               ),
             ),
+            SizedBox(
+              height: 130,
+              child: GridView.count(
+                  primary: false,
+                  padding: const EdgeInsets.only(left: 20, right: 20),
+                  crossAxisSpacing: 15,
+                  mainAxisSpacing: 1,
+                  crossAxisCount: 5,
+                  children: [
+                    // top row
+                    OperatorButtonMini(
+                        text: "SIN", action: _update, color: color),
+                    OperatorButtonMini(
+                        text: "COS", action: _update, color: color),
+                    OperatorButtonMini(
+                        text: "TAN", action: _update, color: color),
+                    OperatorButtonMini(
+                        text: "LOG", action: _update, color: color),
+                    OperatorButtonMini(
+                        text: "INV", action: _update, color: color),
+                    // row
+                    OperatorButtonMini(
+                        text: "SQRT", action: _update, color: color),
+                    OperatorButtonMini(
+                        text: "PI", action: _update, color: color),
+                    OperatorButtonMini(
+                        text: "^", action: _update, color: color),
+                    OperatorButtonMini(
+                        text: "e", action: _update, color: color),
+                    OperatorButtonMini(
+                        text: "?", action: _update, color: color),
+                  ]),
+            ),
             Expanded(
               child: Padding(
-                padding: EdgeInsets.only(
-                  // calculator padding is dependent on screen height
-                  top: getCalculatorPadding(MediaQuery.of(context).size.height),
-                ),
+                padding: const EdgeInsets.only(top: 12),
                 child: GridView.count(
                   primary: false,
-                  padding: const EdgeInsets.all(20),
-                  crossAxisSpacing: 12,
+                  padding:
+                      const EdgeInsets.only(left: 20, right: 20, bottom: 20),
+                  crossAxisSpacing: 15,
                   mainAxisSpacing:
                       // main axis spacing is dependent on screen height
                       getMainAxisSpacing(MediaQuery.of(context).size.height),

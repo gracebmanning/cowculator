@@ -19,14 +19,17 @@ double getResultHeight() {
   return android ? 135 : 205;
 }
 
-double getOperatorButtonSize() {
+double getOperatorButtonSize({bool mini = false}) {
   getPlatform();
-  return android ? 80 : 85;
+  if (mini) {
+    return android ? 60 : 65;
+  }
+  return android ? 75 : 80;
 }
 
 double getNumButtonSize() {
   getPlatform();
-  return android ? 85 : 90;
+  return android ? 80 : 85;
 }
 
 double getCalculatorHeight(double screenHeight) {
@@ -56,9 +59,9 @@ double getCalculatorPadding(double screenHeight) {
 double getMainAxisSpacing(double screenHeight) {
   // Pixel 6 & iPhone 12 screen height: ~ 898
   if (900 < screenHeight && screenHeight < 1000) {
-    return screenHeight * 0.025;
-  } else if (800 < screenHeight && screenHeight <= 900) {
     return screenHeight * 0.023;
+  } else if (800 < screenHeight && screenHeight <= 900) {
+    return screenHeight * 0.018;
   } else {
     return screenHeight * 0.01;
   }

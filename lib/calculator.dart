@@ -253,6 +253,8 @@ class Calculator {
   String formatResult(double input) {
     String str = "";
 
+    print(input);
+
     if (input.isInfinite) {
       str = input.toStringAsFixed(input.truncateToDouble() == input ? 0 : 6);
     } else {
