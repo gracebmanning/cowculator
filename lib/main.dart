@@ -50,6 +50,11 @@ class _MainState extends State<Main> {
   Color color = pink;
   late Calculator c = Calculator();
   String displayString = "";
+  bool invalid = false;
+  bool inverted = false;
+
+  // change later
+  Icon toggleIcon = toggleRight;
 
   @override
   void initState() {
@@ -66,6 +71,17 @@ class _MainState extends State<Main> {
     c.input(val);
     setState(() {
       displayString = c.getResult();
+      invalid = c.getInvalid();
+    });
+  }
+
+  _invert(String val) {
+    setState(() {
+      if (inverted) {
+        inverted = false;
+      } else {
+        inverted = true;
+      }
     });
   }
 
@@ -114,11 +130,17 @@ class _MainState extends State<Main> {
                       reverse: true,
                       child: Padding(
                         padding: const EdgeInsets.all(20),
-                        child: Text(
-                          displayString,
-                          style: TextStyle(
-                              fontSize:
-                                  MediaQuery.of(context).size.width * 0.1),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Text(invalid ? 'INVALID' : ''),
+                            Text(
+                              displayString,
+                              style: TextStyle(
+                                  fontSize:
+                                      MediaQuery.of(context).size.width * 0.1),
+                            ),
+                          ],
                         ),
                       ),
                     ),
@@ -135,28 +157,34 @@ class _MainState extends State<Main> {
                   mainAxisSpacing: 1,
                   crossAxisCount: 5,
                   children: [
-                    // top row
+                    // top row - small buttons
                     OperatorButtonMini(
-                        text: "SIN", action: _update, color: color),
+                        text: inverted ? "SIN" : "SIN-1",
+                        action: _update,
+                        color: color),
                     OperatorButtonMini(
-                        text: "COS", action: _update, color: color),
+                        text: inverted ? "COS" : "COS-1",
+                        action: _update,
+                        color: color),
                     OperatorButtonMini(
-                        text: "TAN", action: _update, color: color),
+                        text: inverted ? "TAN" : "TAN-1",
+                        action: _update,
+                        color: color),
                     OperatorButtonMini(
                         text: "LOG", action: _update, color: color),
                     OperatorButtonMini(
-                        text: "INV", action: _update, color: color),
-                    // row
+                        text: "INV", action: _invert, color: color),
+                    // bottom row - small buttons
                     OperatorButtonMini(
-                        text: "SQRT", action: _update, color: color),
+                        text: "√", action: _update, color: color),
                     OperatorButtonMini(
-                        text: "PI", action: _update, color: color),
+                        text: "π", action: _update, color: color),
                     OperatorButtonMini(
                         text: "^", action: _update, color: color),
                     OperatorButtonMini(
                         text: "e", action: _update, color: color),
                     OperatorButtonMini(
-                        text: "?", action: _update, color: color),
+                        text: "!", action: _update, color: color),
                   ]),
             ),
             Expanded(

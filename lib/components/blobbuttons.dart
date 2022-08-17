@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:cowculator/constants/blobs.dart';
 import 'package:cowculator/constants/colors.dart';
 import 'package:cowculator/constants/platformconstants.dart';
@@ -138,14 +140,28 @@ class OperatorButtonMini extends StatelessWidget {
         child: Align(
           alignment: Alignment.center,
           child: TextButton(
-            child: Text(
-              text,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  fontSize: 17, color: (color == brown) ? brown : black),
-            ),
+            child: (text == "SIN-1" || text == "COS-1" || text == "TAN-1")
+                ? Wrap(children: [
+                    Text(text.substring(0, 3),
+                        style:
+                            TextStyle(color: (color == brown) ? brown : black)),
+                    Text('-1',
+                        style: TextStyle(
+                            color: (color == brown) ? brown : black,
+                            fontFeatures: const [FontFeature.superscripts()])),
+                  ])
+                : Text(
+                    text,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontSize: 19, color: (color == brown) ? brown : black),
+                  ),
             onPressed: () {
-              action(text);
+              if (text == "SIN-1" || text == "COS-1" || text == "TAN-1") {
+                action('A' + text.substring(0, 3)); // passes asin, acos, atan
+              } else {
+                action(text);
+              }
             },
           ),
         ),
