@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 class ColorButton extends StatelessWidget {
-  ColorButton({Key? key, required this.color, required this.action})
+  const ColorButton({Key? key, required this.color, required this.action})
       : super(key: key);
-  Color color;
-  dynamic action;
+  final Color color;
+  final dynamic action;
 
   @override
   Widget build(BuildContext context) {

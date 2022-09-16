@@ -10,12 +10,12 @@ import 'package:flutter/material.dart';
 ////// FULL SIZE BUTTONS ///////
 ///////////////////////////////
 class OperatorButton extends StatelessWidget {
-  OperatorButton(
+  const OperatorButton(
       {Key? key, required this.text, required this.action, required this.color})
       : super(key: key);
-  String text;
-  dynamic action;
-  Color color;
+  final String text;
+  final dynamic action;
+  final Color color;
 
   @override
   Widget build(BuildContext context) {
@@ -45,17 +45,17 @@ class OperatorButton extends StatelessWidget {
 }
 
 class OperatorIconButton extends StatelessWidget {
-  OperatorIconButton(
+  const OperatorIconButton(
       {Key? key,
       required this.text,
       required this.icon,
       required this.action,
       required this.color})
       : super(key: key);
-  String text;
+  final String text;
   final Icon icon;
-  dynamic action;
-  Color color;
+  final dynamic action;
+  final Color color;
 
   @override
   Widget build(BuildContext context) {
@@ -82,12 +82,12 @@ class OperatorIconButton extends StatelessWidget {
 }
 
 class NumButton extends StatelessWidget {
-  NumButton(
+  const NumButton(
       {Key? key, required this.text, required this.action, required this.color})
       : super(key: key);
-  String text;
-  dynamic action;
-  Color color;
+  final String text;
+  final dynamic action;
+  final Color color;
 
   @override
   Widget build(BuildContext context) {
@@ -119,12 +119,14 @@ class NumButton extends StatelessWidget {
 //////// MINI BUTTONS //////////
 ///////////////////////////////
 class OperatorButtonMini extends StatelessWidget {
-  OperatorButtonMini(
+  const OperatorButtonMini(
       {Key? key, required this.text, required this.action, required this.color})
       : super(key: key);
-  String text;
-  dynamic action;
-  Color color;
+  final String text;
+  final dynamic action;
+  final Color color;
+
+  // create function for the invertable text
 
   @override
   Widget build(BuildContext context) {
@@ -140,16 +142,39 @@ class OperatorButtonMini extends StatelessWidget {
         child: Align(
           alignment: Alignment.center,
           child: TextButton(
-            child: (text == "SIN-1" || text == "COS-1" || text == "TAN-1")
-                ? Wrap(children: [
-                    Text(text.substring(0, 3),
-                        style:
-                            TextStyle(color: (color == brown) ? brown : black)),
-                    Text('-1',
-                        style: TextStyle(
-                            color: (color == brown) ? brown : black,
-                            fontFeatures: const [FontFeature.superscripts()])),
-                  ])
+            child: (text == "SIN-1" ||
+                    text == "COS-1" ||
+                    text == "TAN-1" ||
+                    text == "x^2")
+                ? text == "x^2" // text is x^2
+                    ? Wrap(children: [
+                        Text('x',
+                            style: TextStyle(
+                                fontSize: 19,
+                                color: (color == brown) ? brown : black)),
+                        Text('2',
+                            style: TextStyle(
+                                fontSize: 19,
+                                color: (color == brown) ? brown : black,
+                                fontFeatures: const [
+                                  FontFeature.superscripts()
+                                ])),
+                      ])
+                    // text is sin-1, cos-1, tan-1
+                    : Wrap(children: [
+                        Text(text.substring(0, 3),
+                            style: TextStyle(
+                                fontSize: 17,
+                                color: (color == brown) ? brown : black)),
+                        Text('-1',
+                            style: TextStyle(
+                                fontSize: 14,
+                                color: (color == brown) ? brown : black,
+                                fontFeatures: const [
+                                  FontFeature.superscripts()
+                                ])),
+                      ])
+                // text is not an invertable value
                 : Text(
                     text,
                     textAlign: TextAlign.center,
@@ -171,17 +196,17 @@ class OperatorButtonMini extends StatelessWidget {
 }
 
 class OperatorIconButtonMini extends StatelessWidget {
-  OperatorIconButtonMini(
+  const OperatorIconButtonMini(
       {Key? key,
       required this.text,
       required this.icon,
       required this.action,
       required this.color})
       : super(key: key);
-  String text;
+  final String text;
   final Icon icon;
-  dynamic action;
-  Color color;
+  final dynamic action;
+  final Color color;
 
   @override
   Widget build(BuildContext context) {

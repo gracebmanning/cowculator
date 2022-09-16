@@ -8,6 +8,7 @@ class Calculator {
   String result = "";
   bool startNewExp = false;
   bool openParen = false;
+  int openParenCount = 0;
   bool invalid = false;
   AudioPlayer player = AudioPlayer();
 
@@ -102,21 +103,39 @@ class Calculator {
           cos();
           break;
         }
-      // TODO: create ACOS case and function
+      case "ACOS":
+        {
+          acos();
+          break;
+        }
       case "TAN":
         {
           tan();
           break;
         }
-      // TODO: create ATAN case and function
+      case "ATAN":
+        {
+          atan();
+          break;
+        }
       case "LOG":
         {
           log();
           break;
         }
+      case "LN":
+        {
+          ln();
+          break;
+        }
       case "√":
         {
           sqrt();
+          break;
+        }
+      case "x^2":
+        {
+          squared();
           break;
         }
       case "π":
@@ -151,6 +170,7 @@ class Calculator {
     result = "";
     startNewExp = true;
     openParen = false;
+    openParenCount = 0;
     invalid = false;
   }
 
@@ -160,16 +180,34 @@ class Calculator {
       result = '(';
       startNewExp = false;
       openParen = true;
+      openParenCount++;
     } else {
       // add to current expression
-      if (openParen) {
-        result += ')';
-        openParen = false;
-      } else {
+      if (openParenCount == 0) {
         result += '(';
         openParen = true;
+        openParenCount++;
+      } else {
+        String leftVal = result[result.length - 1];
+        // 0-9, %
+        if (double.tryParse(leftVal) != null || leftVal == '%') {
+          result += ')';
+          openParen = true;
+          openParenCount--;
+        }
+        // + - x / ^
+        else if (leftVal == '+' ||
+            leftVal == '-' ||
+            leftVal == 'x' ||
+            leftVal == '/' ||
+            leftVal == '^') {
+          result += '(';
+          openParen = true;
+          openParenCount++;
+        }
       }
     }
+    print(openParenCount);
   }
 
   void percent() {
@@ -222,18 +260,18 @@ class Calculator {
       result += 'sin(';
     }
     openParen = true;
+    openParenCount++;
     startNewExp = false;
   }
 
   void asin() {
-    // TODO: change from asin to sin-1 (to display to user)
-    // TODO: create function in evaluate() that replaces sin-1 to asin()
     if (startNewExp || result == "") {
-      result = 'asin(';
+      result = 'arcsin(';
     } else {
-      result += 'asin(';
+      result += 'arcsin(';
     }
     openParen = true;
+    openParenCount++;
     startNewExp = false;
   }
 
@@ -244,6 +282,18 @@ class Calculator {
       result += 'cos(';
     }
     openParen = true;
+    openParenCount++;
+    startNewExp = false;
+  }
+
+  void acos() {
+    if (startNewExp || result == "") {
+      result = 'arccos(';
+    } else {
+      result += 'arccos(';
+    }
+    openParen = true;
+    openParenCount++;
     startNewExp = false;
   }
 
@@ -254,6 +304,18 @@ class Calculator {
       result += 'tan(';
     }
     openParen = true;
+    openParenCount++;
+    startNewExp = false;
+  }
+
+  void atan() {
+    if (startNewExp || result == "") {
+      result = 'arctan(';
+    } else {
+      result += 'arctan(';
+    }
+    openParen = true;
+    openParenCount++;
     startNewExp = false;
   }
 
@@ -264,6 +326,18 @@ class Calculator {
       result += 'log(';
     }
     openParen = true;
+    openParenCount++;
+    startNewExp = false;
+  }
+
+  void ln() {
+    if (startNewExp || result == "") {
+      result = 'ln(';
+    } else {
+      result += 'ln(';
+    }
+    openParen = true;
+    openParenCount++;
     startNewExp = false;
   }
 
@@ -274,7 +348,12 @@ class Calculator {
       result += '√(';
     }
     openParen = true;
+    openParenCount++;
     startNewExp = false;
+  }
+
+  void squared() {
+    // TODO: x^2
   }
 
   void pi() {
@@ -288,9 +367,7 @@ class Calculator {
   }
 
   void exponent() {
-    if (startNewExp == false && result != "") {
-      result += '^';
-    }
+    result += '^';
   }
 
   void e() {
@@ -324,7 +401,6 @@ class Calculator {
     if (soundEffects) {
       playSound();
     }
-
     // set to true, will return to false after evaluating
     invalid = true;
 
@@ -351,6 +427,7 @@ class Calculator {
     invalid = false;
     startNewExp = true;
     openParen = false;
+    openParenCount = 0;
   }
 
   void playSound() async {
@@ -363,14 +440,36 @@ class Calculator {
   }
 
   String formatPi(String str) {
+    int i = 0;
+    while (i < str.length) {
+      if (str[i] == 'π') {
+        if (i - 1 >= 0 &&
+            // check if number or ) comes directly before it
+            (double.tryParse(str[i - 1]) != null || str[i - 1] == ')')) {
+          // add * before pi
+          str = str.substring(0, i) + "*" + str.substring(i);
+        }
+      }
+      i++;
+    }
     str = str.replaceAll('π', math.pi.toString());
-    // TODO: if next to a number or parentheses, add multiplication sign
     return str;
   }
 
   String formatE(String str) {
+    int i = 0;
+    while (i < str.length) {
+      if (str[i] == 'e') {
+        if (i - 1 >= 0 &&
+            // check if number or ) comes directly before it
+            (double.tryParse(str[i - 1]) != null || str[i - 1] == ')')) {
+          // add * before e
+          str = str.substring(0, i) + "*" + str.substring(i);
+        }
+      }
+      i++;
+    }
     str = str.replaceAll('e', math.e.toString());
-    // TODO: if next to a number or parentheses, add multiplication sign
     return str;
   }
 
@@ -440,8 +539,7 @@ class Calculator {
     String str = "";
 
     str = input.toStringAsFixed(input.truncateToDouble() == input ? 0 : 10);
-    // TODO: change this?
-    // TODO: fix zeros
+    // TODO: change this to fix zeros?
 
     RegExp regex = RegExp(r'/\.0+$/');
     str = str.replaceAll(regex, '');

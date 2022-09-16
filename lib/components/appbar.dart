@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import '../constants/colors.dart';
 
 class MainAppbar extends StatelessWidget {
-  MainAppbar(
+  const MainAppbar(
       {Key? key,
       required this.title,
       required this.color,
       required this.action})
       : super(key: key);
-  String title;
-  Color color;
-  dynamic action;
+  final String title;
+  final Color color;
+  final dynamic action;
 
   @override
   Widget build(BuildContext context) {
@@ -27,12 +27,12 @@ class MainAppbar extends StatelessWidget {
 }
 
 class SettingsAppbar extends StatelessWidget {
-  SettingsAppbar(
+  const SettingsAppbar(
       {Key? key, required this.title, required this.color, this.leading})
       : super(key: key);
-  String title;
-  Color color;
-  dynamic leading;
+  final String title;
+  final Color color;
+  final dynamic leading;
 
   @override
   Widget build(BuildContext context) {
@@ -47,17 +47,17 @@ class SettingsAppbar extends StatelessWidget {
 }
 
 class HistoryAppbar extends StatelessWidget {
-  HistoryAppbar(
+  const HistoryAppbar(
       {Key? key,
       required this.title,
       required this.color,
       required this.leading,
       required this.action})
       : super(key: key);
-  String title;
-  Color color;
-  dynamic leading;
-  dynamic action;
+  final String title;
+  final Color color;
+  final dynamic leading;
+  final dynamic action;
 
   @override
   Widget build(BuildContext context) {

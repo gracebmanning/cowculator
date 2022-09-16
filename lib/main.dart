@@ -53,9 +53,6 @@ class _MainState extends State<Main> {
   bool invalid = false;
   bool inverted = false;
 
-  // change later
-  Icon toggleIcon = toggleRight;
-
   @override
   void initState() {
     super.initState();
@@ -136,9 +133,7 @@ class _MainState extends State<Main> {
                             Text(invalid ? 'INVALID' : ''),
                             Text(
                               displayString,
-                              style: TextStyle(
-                                  fontSize:
-                                      MediaQuery.of(context).size.width * 0.1),
+                              style: const TextStyle(fontSize: 40),
                             ),
                           ],
                         ),
@@ -159,24 +154,28 @@ class _MainState extends State<Main> {
                   children: [
                     // top row - small buttons
                     OperatorButtonMini(
-                        text: inverted ? "SIN" : "SIN-1",
+                        text: inverted ? "SIN-1" : "SIN",
                         action: _update,
                         color: color),
                     OperatorButtonMini(
-                        text: inverted ? "COS" : "COS-1",
+                        text: inverted ? "COS-1" : "COS",
                         action: _update,
                         color: color),
                     OperatorButtonMini(
-                        text: inverted ? "TAN" : "TAN-1",
+                        text: inverted ? "TAN-1" : "TAN",
                         action: _update,
                         color: color),
                     OperatorButtonMini(
-                        text: "LOG", action: _update, color: color),
+                        text: inverted ? "LN" : "LOG",
+                        action: _update,
+                        color: color),
                     OperatorButtonMini(
                         text: "INV", action: _invert, color: color),
                     // bottom row - small buttons
                     OperatorButtonMini(
-                        text: "√", action: _update, color: color),
+                        text: inverted ? "x^2" : "√",
+                        action: _update,
+                        color: color),
                     OperatorButtonMini(
                         text: "π", action: _update, color: color),
                     OperatorButtonMini(
