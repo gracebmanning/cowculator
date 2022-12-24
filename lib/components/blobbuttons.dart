@@ -195,6 +195,7 @@ class OperatorButtonMini extends StatelessWidget {
   }
 }
 
+// not in use
 class OperatorIconButtonMini extends StatelessWidget {
   const OperatorIconButtonMini(
       {Key? key,

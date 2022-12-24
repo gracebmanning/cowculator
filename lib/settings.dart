@@ -139,7 +139,8 @@ class _SettingsState extends State<Settings> {
                         style: TextStyle(fontSize: 17)),
                     Link(
                       target: LinkTarget.blank,
-                      uri: Uri.parse('https://gbm-studio.com/privacy'),
+                      uri: Uri.parse(
+                          'https://gbm-studio.com/cowculator/privacy'),
                       builder: (context, followLink) => GestureDetector(
                           onTap: followLink,
                           child: const Padding(

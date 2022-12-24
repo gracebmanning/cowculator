@@ -6,8 +6,8 @@ import 'dart:math' as math;
 
 class Calculator {
   String result = "";
+  String lastResult = "";
   bool startNewExp = false;
-  bool openParen = false;
   int openParenCount = 0;
   bool invalid = false;
   AudioPlayer player = AudioPlayer();
@@ -18,8 +18,12 @@ class Calculator {
   // initialize calculator with soundEffects value.
   Calculator() {
     () async {
+      // sound effects
       bool val = await storage.getSoundEffects();
       soundEffects = val;
+      // last result from history
+      String historyString = await storage.getLastHistoryItem();
+      lastResult = historyString;
     }();
   }
 
@@ -38,9 +42,19 @@ class Calculator {
           clear();
           break;
         }
-      case "( )":
+      case "MEM":
         {
-          parentheses();
+          memory();
+          break;
+        }
+      case "(":
+        {
+          openParen();
+          break;
+        }
+      case ")":
+        {
+          closedParen();
           break;
         }
       case "%":
@@ -169,45 +183,41 @@ class Calculator {
   void clear() {
     result = "";
     startNewExp = true;
-    openParen = false;
     openParenCount = 0;
     invalid = false;
   }
 
-  void parentheses() {
+  void memory() {
     if (startNewExp || result == "") {
+      // if none, result = "no items available" ?
+      result = lastResult;
+    } else {
+      result += lastResult;
+    }
+  }
+
+  void openParen() {
+    if (startNewExp) {
       // start new expression
       result = '(';
       startNewExp = false;
-      openParen = true;
-      openParenCount++;
     } else {
       // add to current expression
-      if (openParenCount == 0) {
-        result += '(';
-        openParen = true;
-        openParenCount++;
-      } else {
-        String leftVal = result[result.length - 1];
-        // 0-9, %
-        if (double.tryParse(leftVal) != null || leftVal == '%') {
-          result += ')';
-          openParen = true;
-          openParenCount--;
-        }
-        // + - x / ^
-        else if (leftVal == '+' ||
-            leftVal == '-' ||
-            leftVal == 'x' ||
-            leftVal == '/' ||
-            leftVal == '^') {
-          result += '(';
-          openParen = true;
-          openParenCount++;
-        }
-      }
+      result += '(';
     }
-    print(openParenCount);
+    openParenCount++;
+  }
+
+  void closedParen() {
+    if (startNewExp) {
+      // start new expression
+      result = ')';
+      startNewExp = false;
+    } else {
+      // add to current expression
+      result += ')';
+    }
+    openParenCount--;
   }
 
   void percent() {
@@ -259,7 +269,6 @@ class Calculator {
     } else {
       result += 'sin(';
     }
-    openParen = true;
     openParenCount++;
     startNewExp = false;
   }
@@ -270,7 +279,6 @@ class Calculator {
     } else {
       result += 'arcsin(';
     }
-    openParen = true;
     openParenCount++;
     startNewExp = false;
   }
@@ -281,7 +289,6 @@ class Calculator {
     } else {
       result += 'cos(';
     }
-    openParen = true;
     openParenCount++;
     startNewExp = false;
   }
@@ -292,7 +299,6 @@ class Calculator {
     } else {
       result += 'arccos(';
     }
-    openParen = true;
     openParenCount++;
     startNewExp = false;
   }
@@ -303,7 +309,6 @@ class Calculator {
     } else {
       result += 'tan(';
     }
-    openParen = true;
     openParenCount++;
     startNewExp = false;
   }
@@ -314,7 +319,6 @@ class Calculator {
     } else {
       result += 'arctan(';
     }
-    openParen = true;
     openParenCount++;
     startNewExp = false;
   }
@@ -325,7 +329,6 @@ class Calculator {
     } else {
       result += 'log(';
     }
-    openParen = true;
     openParenCount++;
     startNewExp = false;
   }
@@ -336,7 +339,6 @@ class Calculator {
     } else {
       result += 'ln(';
     }
-    openParen = true;
     openParenCount++;
     startNewExp = false;
   }
@@ -347,13 +349,13 @@ class Calculator {
     } else {
       result += '√(';
     }
-    openParen = true;
     openParenCount++;
     startNewExp = false;
   }
 
   void squared() {
-    // TODO: x^2
+    result += '^2';
+    startNewExp = false;
   }
 
   void pi() {
@@ -362,12 +364,12 @@ class Calculator {
     } else {
       result += 'π';
     }
-    openParen = true;
     startNewExp = false;
   }
 
   void exponent() {
     result += '^';
+    startNewExp = false;
   }
 
   void e() {
@@ -376,7 +378,6 @@ class Calculator {
     } else {
       result += 'e';
     }
-    openParen = true;
     startNewExp = false;
   }
 
@@ -423,10 +424,10 @@ class Calculator {
       String finalResult = formatResult(eval);
       createHistoryItem(nonformattedResult, finalResult);
       result = finalResult;
+      lastResult = finalResult;
     }
     invalid = false;
     startNewExp = true;
-    openParen = false;
     openParenCount = 0;
   }
 
@@ -475,7 +476,6 @@ class Calculator {
 
   String formatSquareRoot(String str) {
     str = str.replaceAll('√', 'sqrt');
-    // TODO: if no close parentheses add one
     return str;
   }
 
@@ -537,9 +537,7 @@ class Calculator {
 
   String formatResult(double input) {
     String str = "";
-
     str = input.toStringAsFixed(input.truncateToDouble() == input ? 0 : 10);
-    // TODO: change this to fix zeros?
 
     RegExp regex = RegExp(r'/\.0+$/');
     str = str.replaceAll(regex, '');
@@ -554,3 +552,39 @@ class Calculator {
     storage.addHistoryItem(item);
   }
 } // end of Calculator class
+
+
+// code to format square root parentheses from sqrt(4 to sqrt(4)
+// FLAW: only works with single-value operands. Does not work with something like sqrt(4*5)
+/*
+    int index = 0;
+    int len = str.length;
+    while (index < len) {
+      // if at sqrt...
+      if (str[index] == 's' &&
+          index + 1 < str.length &&
+          str[index + 1] == 'q') {
+        int i = index + 5;
+
+        // if no close parentheses, add one at next operator
+        while (i < str.length) {
+          if (str[i] == ')') {
+            break;
+          } else if (double.tryParse(str[i]) == null) {
+            // get to a non-numerical value
+            if (i == str.length - 1) {
+              str += ')';
+            } else {
+              str = str.substring(0, i) + ')' + str.substring(i);
+            }
+            break;
+          } else if (i == str.length - 1) {
+            str += ')';
+          }
+          i++;
+        }
+      }
+      index++;
+      len = str.length;
+    }
+    */

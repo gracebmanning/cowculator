@@ -148,9 +148,9 @@ class _MainState extends State<Main> {
               child: GridView.count(
                   primary: false,
                   padding: const EdgeInsets.only(left: 20, right: 20),
-                  crossAxisSpacing: 15,
-                  mainAxisSpacing: 1,
-                  crossAxisCount: 5,
+                  crossAxisSpacing: 5,
+                  mainAxisSpacing: 8,
+                  crossAxisCount: 6,
                   children: [
                     // top row - small buttons
                     OperatorButtonMini(
@@ -170,12 +170,13 @@ class _MainState extends State<Main> {
                         action: _update,
                         color: color),
                     OperatorButtonMini(
-                        text: "INV", action: _invert, color: color),
-                    // bottom row - small buttons
-                    OperatorButtonMini(
                         text: inverted ? "x^2" : "√",
                         action: _update,
                         color: color),
+                    OperatorButtonMini(
+                        text: "INV", action: _invert, color: color),
+
+                    // bottom row - small buttons
                     OperatorButtonMini(
                         text: "π", action: _update, color: color),
                     OperatorButtonMini(
@@ -184,6 +185,10 @@ class _MainState extends State<Main> {
                         text: "e", action: _update, color: color),
                     OperatorButtonMini(
                         text: "!", action: _update, color: color),
+                    OperatorButtonMini(
+                        text: "(", action: _update, color: color),
+                    OperatorButtonMini(
+                        text: ")", action: _update, color: color),
                   ]),
             ),
             Expanded(
@@ -201,7 +206,7 @@ class _MainState extends State<Main> {
                   children: [
                     // first row
                     OperatorButton(text: "CLR", action: _update, color: color),
-                    OperatorButton(text: "( )", action: _update, color: color),
+                    OperatorButton(text: "MEM", action: _update, color: color),
                     OperatorIconButton(
                         text: "%",
                         icon: percent,

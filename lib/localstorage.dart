@@ -5,6 +5,7 @@ class LocalStorage {
   final List<String> emptyList = [];
   LocalStorage();
 
+  ///// SOUND EFFECTS /////
   setSoundEffects(bool val) async {
     prefs = await SharedPreferences.getInstance();
     prefs.setBool('soundEffects', val);
@@ -16,6 +17,7 @@ class LocalStorage {
     return retVal;
   }
 
+  ///// COLOR PREFERENCE /////
   setColor(int val) async {
     prefs = await SharedPreferences.getInstance();
     prefs.setInt('color', val);
@@ -27,11 +29,21 @@ class LocalStorage {
     return retVal;
   }
 
+  ///// HISTORY /////
   addHistoryItem(String item) async {
     prefs = await SharedPreferences.getInstance();
     List<String> history = prefs.getStringList('history') ?? emptyList;
     history.insert(0, item);
     prefs.setStringList('history', history);
+  }
+
+  Future<String> getLastHistoryItem() async {
+    prefs = await SharedPreferences.getInstance();
+    List<String> history = prefs.getStringList('history') ?? emptyList;
+    String historyItem = history.first;
+    int start = historyItem.indexOf("=") + 1;
+    String frag = historyItem.substring(start);
+    return frag;
   }
 
   clearHistory() async {
