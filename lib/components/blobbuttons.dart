@@ -70,7 +70,7 @@ class OperatorIconButton extends StatelessWidget {
         controller: blobCtrl,
         child: TextButton(
           style:
-              TextButton.styleFrom(primary: (color == brown) ? brown : black),
+              TextButton.styleFrom(foregroundColor: (color == brown) ? brown : black),
           child: icon,
           onPressed: () {
             action(text);
@@ -223,8 +223,8 @@ class OperatorIconButtonMini extends StatelessWidget {
         styles: BlobStyles(color: color, fillType: BlobFillType.fill),
         controller: blobCtrl,
         child: TextButton(
-          style:
-              TextButton.styleFrom(primary: (color == brown) ? brown : black),
+          style: TextButton.styleFrom(
+              foregroundColor: (color == brown) ? brown : black),
           child: icon,
           onPressed: () {
             action(text);

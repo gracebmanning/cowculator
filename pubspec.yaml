@@ -3,7 +3,7 @@ description: a cow-themed cowculator.
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -34,18 +34,16 @@ dependencies:
   flutter_feather_icons: ^2.0.0+1
   math_expressions: ^2.3.1
   blobs: ^2.0.0
-  audioplayers: ^1.0.1
   shared_preferences: ^2.0.15
   intl: ^0.17.0
   flutter_launcher_icons: ^0.9.3
   url_launcher: ^6.1.5
-  
-  
+  audioplayers: ^4.1.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  
+
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
   # activated in the `analysis_options.yaml` file located at the root of your
@@ -53,13 +51,11 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^1.0.0
 
-
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
 # The following section is specific to Flutter.
 flutter:
-
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
@@ -73,5 +69,3 @@ flutter:
       fonts:
         - asset: fonts/Inconsolata-Regular.ttf
         - asset: fonts/Inconsolata-Medium.ttf
-
-  

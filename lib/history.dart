@@ -62,10 +62,10 @@ class _HistoryState extends State<History> {
               }),
           action: Row(
             children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 10),
+              const Padding(
+                padding: EdgeInsets.only(top: 10),
                 child: Column(
-                  children: const [
+                  children: [
                     Text('CLEAR', style: TextStyle(fontSize: 15)),
                     Text('HISTORY', style: TextStyle(fontSize: 15))
                   ],
