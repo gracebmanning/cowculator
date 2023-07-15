@@ -195,6 +195,8 @@ class OperatorButtonMini extends StatelessWidget {
   }
 }
 
+// TODO: fix font color of tiny buttons on brown & black themes
+
 // not in use
 class OperatorIconButtonMini extends StatelessWidget {
   const OperatorIconButtonMini(
