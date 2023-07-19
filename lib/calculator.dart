@@ -1,6 +1,7 @@
 import 'package:intl/intl.dart';
 import 'package:math_expressions/math_expressions.dart';
-import 'package:audioplayers/audioplayers.dart';
+//import 'package:audioplayers/audioplayers.dart';
+import 'package:just_audio/just_audio.dart';
 import 'localstorage.dart';
 import 'dart:math' as math;
 
@@ -10,7 +11,7 @@ class Calculator {
   bool startNewExp = false;
   int openParenCount = 0;
   bool invalid = false;
-  AudioPlayer player = AudioPlayer();
+  final player = AudioPlayer();
 
   LocalStorage storage = LocalStorage();
   bool soundEffects = true;
@@ -432,7 +433,8 @@ class Calculator {
   }
 
   void playSound() async {
-    await player.play(AssetSource('CowMoo.mp3'));
+    player.setAsset('../assets/CowMoo.mp3');
+    await player.play();
   }
 
   String formatLog(String str) {

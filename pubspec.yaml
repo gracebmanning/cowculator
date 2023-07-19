@@ -38,7 +38,8 @@ dependencies:
   intl: ^0.17.0
   flutter_launcher_icons: ^0.9.3
   url_launcher: ^6.1.5
-  audioplayers: ^4.1.0
+  just_audio: ^0.9.34
+  file: ^6.1.4
 
 dev_dependencies:
   flutter_test:
