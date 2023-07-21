@@ -148,8 +148,8 @@ class _MainState extends State<Main> {
               child: GridView.count(
                   primary: false,
                   padding: const EdgeInsets.only(left: 20, right: 20),
-                  crossAxisSpacing: 5,
-                  mainAxisSpacing: 8,
+                  crossAxisSpacing: 9,
+                  mainAxisSpacing: 9,
                   crossAxisCount: 6,
                   children: [
                     // top row - small buttons
@@ -193,11 +193,11 @@ class _MainState extends State<Main> {
             ),
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.only(top: 12),
+                padding: const EdgeInsets.only(top: 0),
                 child: GridView.count(
                   primary: false,
                   padding:
-                      const EdgeInsets.only(left: 20, right: 20, bottom: 20),
+                      const EdgeInsets.only(left: 20, right: 20, bottom: 5),
                   crossAxisSpacing: 15,
                   mainAxisSpacing:
                       // main axis spacing is dependent on screen height

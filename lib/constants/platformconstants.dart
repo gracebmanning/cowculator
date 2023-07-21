@@ -22,14 +22,14 @@ double getResultHeight() {
 double getOperatorButtonSize({bool mini = false}) {
   getPlatform();
   if (mini) {
-    return android ? 60 : 65;
+    return 60; // WAS android 60, iOS 65. Changed for better text fit.
   }
   return android ? 75 : 80;
 }
 
 double getNumButtonSize() {
   getPlatform();
-  return android ? 80 : 85;
+  return 80; // WAS android 80, iOS 85. Changed for better text fit.
 }
 
 double getCalculatorHeight(double screenHeight) {
