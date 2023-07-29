@@ -78,7 +78,10 @@ class OperatorIconButton extends StatelessWidget {
         styles: BlobStyles(color: color, fillType: BlobFillType.stroke),
         controller: blobCtrl,
         child: TextButton(
-          style: TextButton.styleFrom(foregroundColor: textColor),
+          style: ButtonStyle(
+              foregroundColor: MaterialStateProperty.all<Color>(
+                  (color == brown) ? brown : black),
+              alignment: Alignment.center),
           child: icon,
           onPressed: () {
             action(text);
@@ -156,15 +159,20 @@ class OperatorButtonMini extends StatelessWidget {
         child: Align(
           alignment: Alignment.center,
           child: TextButton(
+            style: TextButton.styleFrom(padding: EdgeInsets.zero),
             child: (text == "SIN-1" ||
                     text == "COS-1" ||
                     text == "TAN-1" ||
                     text == "x^2")
                 ? text == "x^2" // text is x^2
-                    ? Wrap(children: [
+                    ? Wrap(alignment: WrapAlignment.center, children: [
                         Text('x',
-                            style: TextStyle(fontSize: 19, color: textColor)),
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontSize: 19,
+                                color: (color == brown) ? brown : black)),
                         Text('2',
+                            textAlign: TextAlign.center,
                             style: TextStyle(
                                 fontSize: 19,
                                 color: textColor,
@@ -173,7 +181,7 @@ class OperatorButtonMini extends StatelessWidget {
                                 ])),
                       ])
                     // text is sin-1, cos-1, tan-1
-                    : Wrap(children: [
+                    : Wrap(alignment: WrapAlignment.center, children: [
                         Text(text.substring(0, 3),
                             style: TextStyle(fontSize: 17, color: textColor)),
                         Text('-1',
@@ -207,6 +215,7 @@ class OperatorButtonMini extends StatelessWidget {
 /////////////////////////////////
 ///////// NOT IN USE ///////////
 ///////////////////////////////
+
 class OperatorIconButtonMini extends StatelessWidget {
   const OperatorIconButtonMini(
       {Key? key,
