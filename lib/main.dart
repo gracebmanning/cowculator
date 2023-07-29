@@ -99,7 +99,6 @@ class _MainState extends State<Main> {
           color: color,
           action: IconButton(
               icon: settings,
-              color: (color == black || color == brown) ? white : black,
               onPressed: () {
                 _viewSettings();
               }),

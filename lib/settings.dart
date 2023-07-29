@@ -135,7 +135,7 @@ class _SettingsState extends State<Settings> {
                     top: MediaQuery.of(context).size.height * 0.32, right: 30),
                 child: Row(
                   children: [
-                    const Text("2022 \u00a9 GBM Studio.",
+                    const Text("2023 \u00a9 Grace Manning.",
                         style: TextStyle(fontSize: 17)),
                     Link(
                       target: LinkTarget.blank,

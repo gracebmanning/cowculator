@@ -21,6 +21,11 @@ class OperatorButton extends StatelessWidget {
   Widget build(BuildContext context) {
     BlobController blobCtrl = BlobController();
 
+    var textColor = black;
+    if (color == brown || color == yellow) {
+      textColor = brown;
+    }
+
     return Align(
       alignment: Alignment.center,
       child: Blob.fromID(
@@ -32,8 +37,7 @@ class OperatorButton extends StatelessWidget {
           child: Text(
             text,
             textAlign: TextAlign.center,
-            style: TextStyle(
-                fontSize: 25, color: (color == brown) ? brown : black),
+            style: TextStyle(fontSize: 25, color: textColor),
           ),
           onPressed: () {
             action(text);
@@ -61,6 +65,11 @@ class OperatorIconButton extends StatelessWidget {
   Widget build(BuildContext context) {
     BlobController blobCtrl = BlobController();
 
+    var textColor = black;
+    if (color == brown || color == yellow) {
+      textColor = brown;
+    }
+
     return Align(
       alignment: Alignment.center,
       child: Blob.fromID(
@@ -69,8 +78,7 @@ class OperatorIconButton extends StatelessWidget {
         styles: BlobStyles(color: color, fillType: BlobFillType.stroke),
         controller: blobCtrl,
         child: TextButton(
-          style:
-              TextButton.styleFrom(foregroundColor: (color == brown) ? brown : black),
+          style: TextButton.styleFrom(foregroundColor: textColor),
           child: icon,
           onPressed: () {
             action(text);
@@ -92,6 +100,7 @@ class NumButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     BlobController blobCtrl = BlobController();
+    final textColor = (color == yellow) ? brown : white;
 
     return Align(
       alignment: Alignment.center,
@@ -104,7 +113,7 @@ class NumButton extends StatelessWidget {
           child: Text(
             text,
             textAlign: TextAlign.center,
-            style: const TextStyle(fontSize: 35, color: white),
+            style: TextStyle(fontSize: 35, color: textColor),
           ),
           onPressed: () {
             action(text);
@@ -126,11 +135,16 @@ class OperatorButtonMini extends StatelessWidget {
   final dynamic action;
   final Color color;
 
-  // create function for the invertable text
-
   @override
   Widget build(BuildContext context) {
     BlobController blobCtrl = BlobController();
+
+    var textColor = black;
+    if (color == brown || color == black) {
+      textColor = white;
+    } else if (color == yellow) {
+      textColor = brown;
+    }
 
     return Align(
       alignment: Alignment.center,
@@ -149,13 +163,11 @@ class OperatorButtonMini extends StatelessWidget {
                 ? text == "x^2" // text is x^2
                     ? Wrap(children: [
                         Text('x',
-                            style: TextStyle(
-                                fontSize: 19,
-                                color: (color == brown) ? brown : black)),
+                            style: TextStyle(fontSize: 19, color: textColor)),
                         Text('2',
                             style: TextStyle(
                                 fontSize: 19,
-                                color: (color == brown) ? brown : black,
+                                color: textColor,
                                 fontFeatures: const [
                                   FontFeature.superscripts()
                                 ])),
@@ -163,13 +175,11 @@ class OperatorButtonMini extends StatelessWidget {
                     // text is sin-1, cos-1, tan-1
                     : Wrap(children: [
                         Text(text.substring(0, 3),
-                            style: TextStyle(
-                                fontSize: 17,
-                                color: (color == brown) ? brown : black)),
+                            style: TextStyle(fontSize: 17, color: textColor)),
                         Text('-1',
                             style: TextStyle(
                                 fontSize: 14,
-                                color: (color == brown) ? brown : black,
+                                color: textColor,
                                 fontFeatures: const [
                                   FontFeature.superscripts()
                                 ])),
@@ -178,8 +188,7 @@ class OperatorButtonMini extends StatelessWidget {
                 : Text(
                     text,
                     textAlign: TextAlign.center,
-                    style: TextStyle(
-                        fontSize: 19, color: (color == brown) ? brown : black),
+                    style: TextStyle(fontSize: 19, color: textColor),
                   ),
             onPressed: () {
               if (text == "SIN-1" || text == "COS-1" || text == "TAN-1") {
@@ -195,9 +204,9 @@ class OperatorButtonMini extends StatelessWidget {
   }
 }
 
-// TODO: fix font color of tiny buttons on brown & black themes
-
-// not in use
+/////////////////////////////////
+///////// NOT IN USE ///////////
+///////////////////////////////
 class OperatorIconButtonMini extends StatelessWidget {
   const OperatorIconButtonMini(
       {Key? key,
