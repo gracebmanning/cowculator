@@ -79,8 +79,7 @@ class OperatorIconButton extends StatelessWidget {
         controller: blobCtrl,
         child: TextButton(
           style: ButtonStyle(
-              foregroundColor: MaterialStateProperty.all<Color>(
-                  (color == brown) ? brown : black),
+              foregroundColor: MaterialStateProperty.all<Color>(textColor),
               alignment: Alignment.center),
           child: icon,
           onPressed: () {
@@ -168,9 +167,7 @@ class OperatorButtonMini extends StatelessWidget {
                     ? Wrap(alignment: WrapAlignment.center, children: [
                         Text('x',
                             textAlign: TextAlign.center,
-                            style: TextStyle(
-                                fontSize: 19,
-                                color: (color == brown) ? brown : black)),
+                            style: TextStyle(fontSize: 19, color: textColor)),
                         Text('2',
                             textAlign: TextAlign.center,
                             style: TextStyle(
