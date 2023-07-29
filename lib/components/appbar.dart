@@ -14,11 +14,18 @@ class MainAppbar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var textColor = black;
+    if (color == brown || color == black) {
+      textColor = white;
+    } else if (color == yellow) {
+      textColor = brown;
+    }
+
     return AppBar(
       title: Text(title,
           style: const TextStyle(fontSize: 27, fontFamily: 'Inconsolata')),
       backgroundColor: color,
-      foregroundColor: (color == black || color == brown) ? white : black,
+      foregroundColor: textColor,
       actions: [action],
       elevation: 0,
       automaticallyImplyLeading: false,
@@ -36,10 +43,17 @@ class SettingsAppbar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var textColor = black;
+    if (color == brown || color == black) {
+      textColor = white;
+    } else if (color == yellow) {
+      textColor = brown;
+    }
+
     return AppBar(
       title: Text(title, style: const TextStyle(fontSize: 25)),
       backgroundColor: color,
-      foregroundColor: (color == black || color == brown) ? white : black,
+      foregroundColor: textColor,
       leading: leading,
       elevation: 0,
     );
@@ -61,10 +75,17 @@ class HistoryAppbar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var textColor = black;
+    if (color == brown || color == black) {
+      textColor = white;
+    } else if (color == yellow) {
+      textColor = brown;
+    }
+
     return AppBar(
       title: Text(title, style: const TextStyle(fontSize: 25)),
       backgroundColor: color,
-      foregroundColor: (color == black || color == brown) ? white : black,
+      foregroundColor: textColor,
       leading: leading,
       actions: [action],
       elevation: 0,

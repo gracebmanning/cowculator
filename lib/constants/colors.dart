@@ -7,6 +7,7 @@ const yellow = Color.fromARGB(220, 252, 227, 97); // 3
 const brown = Color.fromARGB(200, 138, 79, 25); // 4
 const black = Color.fromARGB(210, 0, 0, 0); // 5
 const white = Colors.white; // 6
+const darkyellow = Color.fromARGB(255, 144, 121, 20);
 
 Map<Color, Color> transparents = {
   pink: const Color.fromARGB(30, 251, 174, 208),
