@@ -155,54 +155,55 @@ class OperatorButtonMini extends StatelessWidget {
         size: getOperatorButtonSize(mini: true),
         styles: BlobStyles(color: color, fillType: BlobFillType.fill),
         controller: blobCtrl,
-        child: Align(
-          alignment: Alignment.center,
-          child: TextButton(
-            style: TextButton.styleFrom(padding: EdgeInsets.zero),
-            child: (text == "SIN-1" ||
-                    text == "COS-1" ||
-                    text == "TAN-1" ||
-                    text == "x^2")
-                ? text == "x^2" // text is x^2
-                    ? Wrap(alignment: WrapAlignment.center, children: [
-                        Text('x',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(fontSize: 19, color: textColor)),
-                        Text('2',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                fontSize: 19,
-                                color: textColor,
-                                fontFeatures: const [
-                                  FontFeature.superscripts()
-                                ])),
-                      ])
-                    // text is sin-1, cos-1, tan-1
-                    : Wrap(alignment: WrapAlignment.center, children: [
-                        Text(text.substring(0, 3),
-                            style: TextStyle(fontSize: 17, color: textColor)),
-                        Text('-1',
-                            style: TextStyle(
-                                fontSize: 14,
-                                color: textColor,
-                                fontFeatures: const [
-                                  FontFeature.superscripts()
-                                ])),
-                      ])
-                // text is not an invertable value
-                : Text(
-                    text,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 19, color: textColor),
-                  ),
-            onPressed: () {
-              if (text == "SIN-1" || text == "COS-1" || text == "TAN-1") {
-                action('A' + text.substring(0, 3)); // passes asin, acos, atan
-              } else {
-                action(text);
-              }
-            },
-          ),
+        child: TextButton(
+          style: ButtonStyle(
+              foregroundColor: MaterialStateProperty.all<Color>(textColor),
+              alignment: Alignment.center,
+              padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                  EdgeInsets.zero)),
+          child: (text == "SIN-1" ||
+                  text == "COS-1" ||
+                  text == "TAN-1" ||
+                  text == "x^2")
+              ? text == "x^2" // text is x^2
+                  ? Wrap(children: [
+                      Text('x',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontSize: 19, color: textColor)),
+                      Text('2',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontSize: 19,
+                              color: textColor,
+                              fontFeatures: const [
+                                FontFeature.superscripts()
+                              ])),
+                    ])
+                  // text is sin-1, cos-1, tan-1
+                  : Wrap(children: [
+                      Text(text.substring(0, 3),
+                          style: TextStyle(fontSize: 17, color: textColor)),
+                      Text('-1',
+                          style: TextStyle(
+                              fontSize: 14,
+                              color: textColor,
+                              fontFeatures: const [
+                                FontFeature.superscripts()
+                              ])),
+                    ])
+              // text is not an invertable value
+              : Text(
+                  text,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 19, color: textColor),
+                ),
+          onPressed: () {
+            if (text == "SIN-1" || text == "COS-1" || text == "TAN-1") {
+              action('A' + text.substring(0, 3)); // passes asin, acos, atan
+            } else {
+              action(text);
+            }
+          },
         ),
       ),
     );
