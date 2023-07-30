@@ -197,6 +197,7 @@ class _MainState extends State<Main> {
                   primary: false,
                   padding:
                       const EdgeInsets.only(left: 20, right: 20, bottom: 5),
+                  mainAxisSpacing: 1,
                   crossAxisSpacing: 15,
                   crossAxisCount: 4,
                   children: [
