@@ -192,11 +192,12 @@ class _MainState extends State<Main> {
             ),
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.only(top: 0),
+                padding: const EdgeInsets.only(top: 5),
                 child: GridView.count(
                   primary: false,
                   padding:
                       const EdgeInsets.only(left: 20, right: 20, bottom: 5),
+                  mainAxisSpacing: 4,
                   crossAxisSpacing: 15,
                   crossAxisCount: 4,
                   children: [
