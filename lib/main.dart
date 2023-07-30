@@ -148,7 +148,6 @@ class _MainState extends State<Main> {
               child: GridView.count(
                   primary: false,
                   padding: const EdgeInsets.only(left: 20, right: 20),
-                  crossAxisSpacing: 9,
                   mainAxisSpacing: 9,
                   crossAxisCount: 6,
                   children: [
@@ -199,9 +198,6 @@ class _MainState extends State<Main> {
                   padding:
                       const EdgeInsets.only(left: 20, right: 20, bottom: 5),
                   crossAxisSpacing: 15,
-                  mainAxisSpacing:
-                      // main axis spacing is dependent on screen height
-                      getMainAxisSpacing(MediaQuery.of(context).size.height),
                   crossAxisCount: 4,
                   children: [
                     // first row
