@@ -79,8 +79,8 @@ class OperatorIconButton extends StatelessWidget {
         controller: blobCtrl,
         child: TextButton(
           style: ButtonStyle(
-              foregroundColor: MaterialStateProperty.all<Color>(textColor),
-              alignment: Alignment.center),
+            foregroundColor: MaterialStateProperty.all<Color>(textColor),
+          ),
           child: icon,
           onPressed: () {
             action(text);
