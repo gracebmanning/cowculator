@@ -191,60 +191,48 @@ class _MainState extends State<Main> {
                   ]),
             ),
             Expanded(
-              child: Padding(
-                padding: const EdgeInsets.only(top: 5),
-                child: GridView.count(
-                  primary: false,
-                  padding: const EdgeInsets.only(left: 20, right: 20),
-                  mainAxisSpacing: 1,
-                  crossAxisSpacing: 15,
-                  crossAxisCount: 4,
-                  children: [
-                    // first row
-                    OperatorButton(text: "CLR", action: _update, color: color),
-                    OperatorButton(text: "MEM", action: _update, color: color),
-                    OperatorIconButton(
-                        text: "%",
-                        icon: percent,
-                        action: _update,
-                        color: color),
-                    OperatorIconButton(
-                        text: "/", icon: divide, action: _update, color: color),
-                    // second row
-                    NumButton(text: "7", action: _update, color: color),
-                    NumButton(text: "8", action: _update, color: color),
-                    NumButton(text: "9", action: _update, color: color),
-                    OperatorIconButton(
-                        text: "X",
-                        icon: multiply,
-                        action: _update,
-                        color: color),
-                    // third row
-                    NumButton(text: "4", action: _update, color: color),
-                    NumButton(text: "5", action: _update, color: color),
-                    NumButton(text: "6", action: _update, color: color),
-                    OperatorIconButton(
-                        text: "-", icon: minus, action: _update, color: color),
-                    // fourth row
-                    NumButton(text: "1", action: _update, color: color),
-                    NumButton(text: "2", action: _update, color: color),
-                    NumButton(text: "3", action: _update, color: color),
-                    OperatorIconButton(
-                        text: "+", icon: plus, action: _update, color: color),
-                    // fifth row
-                    NumButton(text: "0", action: _update, color: color),
-                    OperatorButton(text: ".", action: _update, color: color),
-                    OperatorIconButton(
-                        text: "DEL",
-                        icon: delete,
-                        action: _update,
-                        color: color),
-                    OperatorIconButton(
-                        text: "=", icon: equal, action: _update, color: color),
-                  ],
-                ),
+              child: GridView.count(
+                primary: false,
+                padding: const EdgeInsets.only(left: 20, right: 20, top: 5),
+                mainAxisSpacing: 1,
+                crossAxisSpacing: 10,
+                crossAxisCount: 4,
+                children: [
+                  // first row
+                  OperatorButton(text: "CLR", action: _update, color: color),
+                  OperatorButton(text: "MEM", action: _update, color: color),
+                  OperatorIconButton(
+                      text: "%", icon: percent, action: _update, color: color),
+                  OperatorIconButton(
+                      text: "/", icon: divide, action: _update, color: color),
+                  // second row
+                  NumButton(text: "7", action: _update, color: color),
+                  NumButton(text: "8", action: _update, color: color),
+                  NumButton(text: "9", action: _update, color: color),
+                  OperatorIconButton(
+                      text: "X", icon: multiply, action: _update, color: color),
+                  // third row
+                  NumButton(text: "4", action: _update, color: color),
+                  NumButton(text: "5", action: _update, color: color),
+                  NumButton(text: "6", action: _update, color: color),
+                  OperatorIconButton(
+                      text: "-", icon: minus, action: _update, color: color),
+                  // fourth row
+                  NumButton(text: "1", action: _update, color: color),
+                  NumButton(text: "2", action: _update, color: color),
+                  NumButton(text: "3", action: _update, color: color),
+                  OperatorIconButton(
+                      text: "+", icon: plus, action: _update, color: color),
+                  // fifth row
+                  NumButton(text: "0", action: _update, color: color),
+                  OperatorButton(text: ".", action: _update, color: color),
+                  OperatorIconButton(
+                      text: "DEL", icon: delete, action: _update, color: color),
+                  OperatorIconButton(
+                      text: "=", icon: equal, action: _update, color: color),
+                ],
               ),
-            )
+            ),
           ],
         ),
       ),
