@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:cowculator/constants/blobs.dart';
 import 'package:cowculator/constants/colors.dart';
 import 'package:cowculator/constants/platformconstants.dart';

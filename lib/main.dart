@@ -90,9 +90,6 @@ class _MainState extends State<Main> {
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
-    double screenHeight = MediaQuery.of(context).size.height;
-    print(screenHeight);
-
     return Scaffold(
       backgroundColor: white,
       appBar: PreferredSize(
@@ -129,7 +126,7 @@ class _MainState extends State<Main> {
                       scrollDirection: Axis.horizontal,
                       reverse: true,
                       child: Padding(
-                        padding: const EdgeInsets.all(10),
+                        padding: const EdgeInsets.all(20),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
@@ -196,9 +193,9 @@ class _MainState extends State<Main> {
             Expanded(
               child: GridView.count(
                 primary: false,
-                padding: const EdgeInsets.only(left: 20, right: 20, top: 10),
-                mainAxisSpacing: 5,
-                crossAxisSpacing: 13,
+                padding: const EdgeInsets.only(left: 20, right: 20, top: 5),
+                mainAxisSpacing: 1,
+                crossAxisSpacing: 10,
                 crossAxisCount: 4,
                 children: [
                   // first row
