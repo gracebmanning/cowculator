@@ -91,7 +91,6 @@ class _MainState extends State<Main> {
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
     double screenHeight = MediaQuery.of(context).size.height;
-    print('screenHeight: $screenHeight');
 
     return Scaffold(
       backgroundColor: white,
@@ -197,8 +196,8 @@ class _MainState extends State<Main> {
               child: GridView.count(
                 primary: false,
                 padding: const EdgeInsets.only(left: 20, right: 20, top: 5),
-                mainAxisSpacing: 1,
-                crossAxisSpacing: 13,
+                mainAxisSpacing: getMainAxisSpacing(screenHeight),
+                crossAxisSpacing: getCrossAxisSpacing(screenHeight),
                 crossAxisCount: 4,
                 children: [
                   // first row

@@ -6,6 +6,8 @@ bool android = false;
 void getPlatform() {
   if (Platform.isAndroid) {
     android = true;
+  } else {
+    android = false;
   }
 }
 
@@ -32,38 +34,53 @@ double getNumButtonSize() {
   return 80; // WAS android 80, iOS 85. Changed for better text fit.
 }
 
-/* Not in use */
-double getCalculatorHeight(double screenHeight) {
-  // Pixel 6 screen height: 898
-  if (800 < screenHeight && screenHeight < 1000) {
-    return screenHeight * 0.58;
-  }
-  // iPhone 8 height: 736
-  else if (700 < screenHeight && screenHeight <= 800) {
-    return screenHeight * 0.67;
-  } else {
-    return screenHeight * 0.7;
-  }
-}
-
-double getCalculatorPadding(double screenHeight) {
-  // Pixel 6 & iPhone 12 screen height: ~ 898
-  if (900 < screenHeight && screenHeight < 1000) {
-    return screenHeight * 0.09;
-  } else if (800 < screenHeight && screenHeight <= 900) {
-    return screenHeight * 0.07;
-  } else {
-    return screenHeight * 0.04;
-  }
-}
-
 double getMainAxisSpacing(double screenHeight) {
-  // Pixel 6 & iPhone 12 screen height: ~ 898
-  if (900 < screenHeight && screenHeight < 1000) {
-    return screenHeight * 0.023;
-  } else if (800 < screenHeight && screenHeight <= 900) {
-    return screenHeight * 0.018;
-  } else {
-    return screenHeight * 0.01;
+  // 896, 844, 805, 890
+  if (screenHeight >= 815) {
+    return 5;
+  }
+  // 761, 781, 812
+  else if (700 <= screenHeight && screenHeight < 815) {
+    return 1;
+  }
+  // 667
+  else {
+    return 0;
+  }
+}
+
+double getCrossAxisSpacing(double screenHeight) {
+  if (android) {
+    // 805, 890
+    if (screenHeight >= 815) {
+      return 5;
+    }
+    // 761, 781
+    else if (700 <= screenHeight && screenHeight < 815) {
+      return 13;
+    }
+    // random
+    else {
+      return 5;
+    }
+  }
+  // iOS
+  else {
+    // 896
+    if (screenHeight >= 850) {
+      return 5;
+    }
+    // 844
+    else if (820 <= screenHeight && screenHeight < 850) {
+      return 13;
+    }
+    // 812
+    else if (800 <= screenHeight && screenHeight < 820) {
+      return 10;
+    }
+    // 667
+    else {
+      return 17;
+    }
   }
 }
