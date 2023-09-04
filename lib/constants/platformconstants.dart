@@ -32,6 +32,7 @@ double getNumButtonSize() {
   return 80; // WAS android 80, iOS 85. Changed for better text fit.
 }
 
+/* Not in use */
 double getCalculatorHeight(double screenHeight) {
   // Pixel 6 screen height: 898
   if (800 < screenHeight && screenHeight < 1000) {
