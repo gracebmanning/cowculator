@@ -47,6 +47,33 @@ class _HistoryState extends State<History> {
     });
   }
 
+  String _getDateAndTime(int index) {
+    String historyText = history[index];
+    var textList = historyText.split(' ');
+    String time = _formatTime(textList[1]);
+    return textList[0] + ' ' + time;
+  }
+
+  String _formatTime(String time) {
+    var hour = time.split(':')[0];
+    var min = time.split(':')[1];
+
+    if (int.parse(hour) > 12) {
+      hour = (int.parse(hour) - 12).toString();
+      return hour + ':' + min + 'pm';
+    } else if (int.parse(hour) == 12) {
+      return hour + ':' + min + 'pm';
+    } else {
+      return hour + ':' + min + 'am';
+    }
+  }
+
+  String _getEquation(int index) {
+    String historyText = history[index];
+    var textList = historyText.split(' ');
+    return textList[2];
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -97,8 +124,15 @@ class _HistoryState extends State<History> {
                             const BorderRadius.all(Radius.circular(20))),
                     child: Align(
                       alignment: Alignment.centerLeft,
-                      child: Text(history[index],
-                          style: const TextStyle(fontSize: 22)),
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(_getDateAndTime(index),
+                                style: const TextStyle(fontSize: 22)),
+                            Text(_getEquation(index),
+                                style: const TextStyle(
+                                    fontSize: 22, fontWeight: FontWeight.bold))
+                          ]),
                     ),
                   );
                 })
