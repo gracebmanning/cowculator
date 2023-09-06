@@ -128,7 +128,8 @@ class _MainState extends State<Main> {
                       scrollDirection: Axis.horizontal,
                       reverse: true,
                       child: Padding(
-                        padding: const EdgeInsets.all(20),
+                        padding:
+                            EdgeInsets.all(getResultBoxPadding(screenHeight)),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
@@ -146,11 +147,11 @@ class _MainState extends State<Main> {
               ),
             ),
             SizedBox(
-              height: 130,
+              height: getSizedBoxHeight(screenHeight),
               child: GridView.count(
                   primary: false,
                   padding: const EdgeInsets.only(left: 20, right: 20),
-                  mainAxisSpacing: 9,
+                  mainAxisSpacing: getMiniMainAxisSpacing(screenHeight),
                   crossAxisCount: 6,
                   children: [
                     // top row - small buttons
@@ -195,7 +196,8 @@ class _MainState extends State<Main> {
             Expanded(
               child: GridView.count(
                 primary: false,
-                padding: const EdgeInsets.only(left: 20, right: 20, top: 5),
+                padding: EdgeInsets.only(
+                    left: 20, right: 20, top: getTopPadding(screenHeight)),
                 mainAxisSpacing: getMainAxisSpacing(screenHeight),
                 crossAxisSpacing: getCrossAxisSpacing(screenHeight),
                 crossAxisCount: 4,

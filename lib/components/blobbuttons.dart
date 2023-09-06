@@ -18,6 +18,7 @@ class OperatorButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
     BlobController blobCtrl = BlobController();
 
     var textColor = black;
@@ -29,7 +30,7 @@ class OperatorButton extends StatelessWidget {
       alignment: Alignment.center,
       child: Blob.fromID(
         id: const ['15-9-890934'],
-        size: getOperatorButtonSize(),
+        size: getOperatorButtonSize(screenHeight),
         styles: BlobStyles(color: color, fillType: BlobFillType.stroke),
         controller: blobCtrl,
         child: TextButton(
@@ -62,6 +63,7 @@ class OperatorIconButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
     BlobController blobCtrl = BlobController();
 
     var textColor = black;
@@ -73,7 +75,7 @@ class OperatorIconButton extends StatelessWidget {
       alignment: Alignment.center,
       child: Blob.fromID(
         id: const ['15-9-890934'],
-        size: getOperatorButtonSize(),
+        size: getOperatorButtonSize(screenHeight),
         styles: BlobStyles(color: color, fillType: BlobFillType.stroke),
         controller: blobCtrl,
         child: TextButton(
@@ -100,6 +102,7 @@ class NumButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
     BlobController blobCtrl = BlobController();
     final textColor = (color == yellow) ? brown : white;
 
@@ -107,7 +110,7 @@ class NumButton extends StatelessWidget {
       alignment: Alignment.center,
       child: Blob.fromID(
         id: blobs[int.parse(text)],
-        size: getNumButtonSize(),
+        size: getNumButtonSize(screenHeight),
         styles: BlobStyles(color: color),
         controller: blobCtrl,
         child: TextButton(
@@ -138,6 +141,7 @@ class OperatorButtonMini extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
     BlobController blobCtrl = BlobController();
 
     var textColor = black;
@@ -151,7 +155,7 @@ class OperatorButtonMini extends StatelessWidget {
       alignment: Alignment.center,
       child: Blob.fromID(
         id: const ['15-9-890934'],
-        size: getOperatorButtonSize(mini: true),
+        size: getMiniButtonSize(screenHeight),
         styles: BlobStyles(color: color, fillType: BlobFillType.fill),
         controller: blobCtrl,
         child: TextButton(
@@ -202,47 +206,6 @@ class OperatorButtonMini extends StatelessWidget {
             } else {
               action(text);
             }
-          },
-        ),
-      ),
-    );
-  }
-}
-
-/////////////////////////////////
-///////// NOT IN USE ///////////
-///////////////////////////////
-
-class OperatorIconButtonMini extends StatelessWidget {
-  const OperatorIconButtonMini(
-      {Key? key,
-      required this.text,
-      required this.icon,
-      required this.action,
-      required this.color})
-      : super(key: key);
-  final String text;
-  final Icon icon;
-  final dynamic action;
-  final Color color;
-
-  @override
-  Widget build(BuildContext context) {
-    BlobController blobCtrl = BlobController();
-
-    return Align(
-      alignment: Alignment.center,
-      child: Blob.fromID(
-        id: const ['15-9-890934'],
-        size: getOperatorButtonSize(mini: true),
-        styles: BlobStyles(color: color, fillType: BlobFillType.fill),
-        controller: blobCtrl,
-        child: TextButton(
-          style: TextButton.styleFrom(
-              foregroundColor: (color == brown) ? brown : black),
-          child: icon,
-          onPressed: () {
-            action(text);
           },
         ),
       ),
