@@ -76,7 +76,7 @@ double getMiniMainAxisSpacing(double screenHeight) {
 }
 
 double getResultBoxPadding(double screenHeight) {
-  if (screenHeight < 700) {
+  if (screenHeight < 770) {
     return 10;
   } else {
     return 20;
