@@ -17,8 +17,8 @@ double getAppbarHeight() {
 }
 
 double getMainAxisSpacing(double screenHeight) {
-  if (screenHeight < 700) {
-    return 0; // 667
+  if (screenHeight < 750) {
+    return 0; // 667, 736
   } else if (screenHeight < 815) {
     return 1; // 761, 781, 812
   } else {
@@ -37,8 +37,8 @@ double getCrossAxisSpacing(double screenHeight) {
   }
   // iOS
   else {
-    if (screenHeight < 700) {
-      return 17; // 667
+    if (screenHeight < 750) {
+      return 17; // 667, 736
     } else if (screenHeight < 820) {
       return 10; // 812
     } else if (screenHeight < 850) {
@@ -50,7 +50,7 @@ double getCrossAxisSpacing(double screenHeight) {
 }
 
 double getSizedBoxHeight(double screenHeight) {
-  if (screenHeight < 700) {
+  if (screenHeight < 750) {
     return 120;
   } else {
     return 130;
@@ -68,7 +68,7 @@ double getTopPadding(double screenHeight) {
 }
 
 double getMiniMainAxisSpacing(double screenHeight) {
-  if (screenHeight < 700) {
+  if (screenHeight < 750) {
     return 0.5;
   } else {
     return 9;
