@@ -153,6 +153,7 @@ class _MainState extends State<Main> {
                   primary: false,
                   padding: const EdgeInsets.only(left: 20, right: 20),
                   mainAxisSpacing: getMiniMainAxisSpacing(screenHeight),
+                  crossAxisSpacing: getMiniCrossAxisSpacing(screenHeight),
                   crossAxisCount: 6,
                   children: [
                     // top row - small buttons

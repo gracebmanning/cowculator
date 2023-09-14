@@ -21,8 +21,10 @@ double getMainAxisSpacing(double screenHeight) {
     return 0; // 667, 736
   } else if (screenHeight < 815) {
     return 1; // 761, 781, 812
-  } else {
+  } else if (screenHeight < 1000) {
     return 5; // 896, 844, 805, 890
+  } else {
+    return 0;
   }
 }
 
@@ -43,8 +45,10 @@ double getCrossAxisSpacing(double screenHeight) {
       return 10; // 812
     } else if (screenHeight < 850) {
       return 13; // 844
-    } else {
+    } else if (screenHeight < 1000) {
       return 5; // 896
+    } else {
+      return 85;
     }
   }
 }
@@ -55,7 +59,7 @@ double getSizedBoxHeight(double screenHeight) {
   } else if (screenHeight < 900) {
     return 130;
   } else {
-    return 140;
+    return 190;
   }
 }
 
@@ -64,16 +68,28 @@ double getTopPadding(double screenHeight) {
     return 0;
   } else if (screenHeight < 800) {
     return 5;
-  } else {
+  } else if (screenHeight < 1000) {
     return 10;
+  } else {
+    return 0;
   }
 }
 
 double getMiniMainAxisSpacing(double screenHeight) {
   if (screenHeight < 750) {
     return 0.5;
-  } else {
+  } else if (screenHeight < 1000) {
     return 9;
+  } else {
+    return 0.5;
+  }
+}
+
+double getMiniCrossAxisSpacing(screenHeight) {
+  if (screenHeight < 1000) {
+    return 0;
+  } else {
+    return 30;
   }
 }
 
@@ -92,8 +108,10 @@ double getMiniButtonSize(double screenHeight) {
   } else {
     if (screenHeight < 815) {
       return 55;
-    } else {
+    } else if (screenHeight < 1000) {
       return 60;
+    } else {
+      return 75;
     }
   }
 }
@@ -107,8 +125,10 @@ double getOperatorButtonSize(double screenHeight) {
       return 70;
     } else if (screenHeight < 820) {
       return 75;
-    } else {
+    } else if (screenHeight < 1000) {
       return 80;
+    } else {
+      return 95;
     }
   }
 }
@@ -121,8 +141,10 @@ double getNumButtonSize(double screenHeight) {
       return 70;
     } else if (screenHeight < 820) {
       return 75;
-    } else {
+    } else if (screenHeight < 1000) {
       return 80;
+    } else {
+      return 95;
     }
   }
 }
