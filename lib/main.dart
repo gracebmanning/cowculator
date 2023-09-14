@@ -91,6 +91,7 @@ class _MainState extends State<Main> {
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
     double screenHeight = MediaQuery.of(context).size.height;
+    print(screenHeight);
 
     return Scaffold(
       backgroundColor: white,

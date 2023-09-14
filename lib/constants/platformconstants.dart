@@ -52,8 +52,10 @@ double getCrossAxisSpacing(double screenHeight) {
 double getSizedBoxHeight(double screenHeight) {
   if (screenHeight < 750) {
     return 120;
-  } else {
+  } else if (screenHeight < 900) {
     return 130;
+  } else {
+    return 140;
   }
 }
 
