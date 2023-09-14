@@ -40,10 +40,14 @@ class LocalStorage {
   Future<String> getLastHistoryItem() async {
     prefs = await SharedPreferences.getInstance();
     List<String> history = prefs.getStringList('history') ?? emptyList;
-    String historyItem = history.first;
-    int start = historyItem.indexOf("=") + 1;
-    String frag = historyItem.substring(start);
-    return frag;
+    if (history.isEmpty) {
+      return '';
+    } else {
+      String historyItem = history.first;
+      int start = historyItem.indexOf("=") + 1;
+      String frag = historyItem.substring(start);
+      return frag;
+    }
   }
 
   clearHistory() async {
