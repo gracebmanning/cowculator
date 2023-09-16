@@ -16,39 +16,47 @@ double getAppbarHeight() {
   return android ? 60 : 65;
 }
 
-double getMainAxisSpacing(double screenHeight) {
-  if (screenHeight < 750) {
-    return 0; // 667, 736
-  } else if (screenHeight < 815) {
-    return 1; // 761, 781, 812
-  } else if (screenHeight < 1000) {
-    return 5; // 896, 844, 805, 890
-  } else {
+double getMainAxisSpacing(double screenHeight, double screenWidth) {
+  if (screenWidth > 600) {
     return 0;
+  } else {
+    if (screenHeight < 750) {
+      return 0; // 667, 736
+    } else if (screenHeight < 815) {
+      return 1; // 761, 781, 812
+    } else {
+      return 5; // 896, 844, 805, 890
+    }
   }
 }
 
-double getCrossAxisSpacing(double screenHeight) {
+double getCrossAxisSpacing(double screenHeight, double screenWidth) {
   getPlatform();
-  if (android) {
-    if (screenHeight < 800) {
-      return 13; // 761, 781
-    } else {
-      return 5; // 805, 890
-    }
-  }
-  // iOS
-  else {
-    if (screenHeight < 750) {
-      return 17; // 667, 736
-    } else if (screenHeight < 820) {
-      return 10; // 812
-    } else if (screenHeight < 850) {
-      return 13; // 844
-    } else if (screenHeight < 1000) {
-      return 5; // 896
+  if (screenWidth > 600) {
+    if (android) {
+      return 65;
     } else {
       return 85;
+    }
+  } else {
+    if (android) {
+      if (screenHeight < 800) {
+        return 13; // 761, 781
+      } else {
+        return 5; // 805, 890
+      }
+    }
+    // iOS
+    else {
+      if (screenHeight < 750) {
+        return 17; // 667, 736
+      } else if (screenHeight < 820) {
+        return 10; // 812
+      } else if (screenHeight < 850) {
+        return 13; // 844
+      } else {
+        return 5; // 896
+      }
     }
   }
 }
@@ -59,7 +67,16 @@ double getSizedBoxHeight(double screenHeight) {
   } else if (screenHeight < 900) {
     return 130;
   } else {
-    return 190;
+    getPlatform();
+    if (android) {
+      if (screenHeight < 1000) {
+        return 190;
+      } else {
+        return 210;
+      }
+    } else {
+      return 190;
+    }
   }
 }
 
@@ -102,49 +119,55 @@ double getResultBoxPadding(double screenHeight) {
 }
 
 double getMiniButtonSize(double screenHeight) {
-  getPlatform();
-  if (android) {
-    return 60;
+  if (screenHeight > 1000) {
+    return 75;
   } else {
-    if (screenHeight < 815) {
-      return 55;
-    } else if (screenHeight < 1000) {
+    getPlatform();
+    if (android) {
       return 60;
     } else {
-      return 75;
+      if (screenHeight < 815) {
+        return 55;
+      } else {
+        return 60;
+      }
     }
   }
 }
 
 double getOperatorButtonSize(double screenHeight) {
-  getPlatform();
-  if (android) {
-    return 75;
+  if (screenHeight > 1000) {
+    return 95;
   } else {
-    if (screenHeight < 700) {
-      return 70;
-    } else if (screenHeight < 820) {
+    getPlatform();
+    if (android) {
       return 75;
-    } else if (screenHeight < 1000) {
-      return 80;
     } else {
-      return 95;
+      if (screenHeight < 700) {
+        return 70;
+      } else if (screenHeight < 820) {
+        return 75;
+      } else {
+        return 80;
+      }
     }
   }
 }
 
 double getNumButtonSize(double screenHeight) {
-  if (android) {
-    return 80;
+  if (screenHeight > 1000) {
+    return 95;
   } else {
-    if (screenHeight < 700) {
-      return 70;
-    } else if (screenHeight < 820) {
-      return 75;
-    } else if (screenHeight < 1000) {
+    if (android) {
       return 80;
     } else {
-      return 95;
+      if (screenHeight < 700) {
+        return 70;
+      } else if (screenHeight < 820) {
+        return 75;
+      } else {
+        return 80;
+      }
     }
   }
 }

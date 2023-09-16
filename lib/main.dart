@@ -91,7 +91,11 @@ class _MainState extends State<Main> {
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
     double screenHeight = MediaQuery.of(context).size.height;
-    print(screenHeight);
+    double screenWidth = MediaQuery.of(context).size.width;
+    print('height: ' +
+        screenHeight.toString() +
+        ', width: ' +
+        screenWidth.toString());
 
     return Scaffold(
       backgroundColor: white,
@@ -200,8 +204,9 @@ class _MainState extends State<Main> {
                 primary: false,
                 padding: EdgeInsets.only(
                     left: 20, right: 20, top: getTopPadding(screenHeight)),
-                mainAxisSpacing: getMainAxisSpacing(screenHeight),
-                crossAxisSpacing: getCrossAxisSpacing(screenHeight),
+                mainAxisSpacing: getMainAxisSpacing(screenHeight, screenWidth),
+                crossAxisSpacing:
+                    getCrossAxisSpacing(screenHeight, screenWidth),
                 crossAxisCount: 4,
                 children: [
                   // first row
