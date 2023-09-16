@@ -1,4 +1,4 @@
-package com.gbmstudio.cowculator
+package com.gracemanning.cowculator
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -92,10 +92,6 @@ class _MainState extends State<Main> {
     // by the _incrementCounter method above.
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
-    print('height: ' +
-        screenHeight.toString() +
-        ', width: ' +
-        screenWidth.toString());
 
     return Scaffold(
       backgroundColor: white,
