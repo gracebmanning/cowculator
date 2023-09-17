@@ -5,6 +5,6 @@ flutter_icons:
   android: true
   ios: true
   remove_alpha_ios: true
-  image_path: "assets/icon/cowculator_icon.png"
-  adaptive_icon_foreground: "assets/icon/logo_foreground.png"
-  adaptive_icon_background: "#ffffff"
+  image_path: "assets/icon/icon.png"
+  #adaptive_icon_foreground: "assets/icon/logo_foreground.png"
+  #adaptive_icon_background: "#ffffff"
